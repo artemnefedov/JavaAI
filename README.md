@@ -52,7 +52,6 @@ String result = completions.generateText("What is the first line programmers pri
 - [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
 - [x] [Edits](https://platform.openai.com/docs/api-reference/edits)
 - [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
-- [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
 
 ---
 ## Outside Dependencies.
