@@ -120,6 +120,7 @@ public class OpenAIBase {
     /**
      * The convertStreamToModel() method convert API input stream to the relevant class models.
      *
+     * @param <T> the class type of the response models.
      * @param stream input stream from the called API.
      * @param tClass the class type of the response models.
      * @return an instance of the provided class type, T, that represents
