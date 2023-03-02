@@ -59,7 +59,8 @@ public class ImageBuilder extends OpenAIBase {
     private String size = "1024x1024";
 
     /**
-     * The format in which the generated images are returned. Must be one of url or b64_json.
+     * The format in which the generated images are returned.
+     * Must be one of url or b64_json.
      */
     private String response_format = "url";
 
@@ -75,9 +76,11 @@ public class ImageBuilder extends OpenAIBase {
     /**
      * The createImage() method creates an image according to a given request.
      *
-     * @param prompt A text description of the desired image(s). The maximum length is 1000 characters.
+     * @param prompt A text description of the desired image(s).
+     *               The maximum length is 1000 characters.
      * @return url or b64_json, depending on the given response_format.
-     * @throws IOException if there is an error when connecting to the OpenAI API.
+     * @throws IOException if there is an error when connecting
+     * to the OpenAI API.
      */
     public String createImage(String prompt) throws IOException {
 

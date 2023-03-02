@@ -45,7 +45,8 @@ public class Config {
      */
     private Config() {
         properties = new Properties();
-        try (InputStream config = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream config = getClass().getClassLoader()
+                .getResourceAsStream("config.properties")) {
             properties.load(config);
         } catch (IOException exception) {
             exception.printStackTrace();
