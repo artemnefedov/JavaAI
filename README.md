@@ -51,8 +51,8 @@ String result = completions.generateText("What is the first line programmers pri
 ## Models JavaAI can work with:
 - [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
 - [x] [Edits](https://platform.openai.com/docs/api-reference/edits)
-- [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
 - [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
+- [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
 ---
 ## Outside Dependencies.
 #### This library uses [Gson](https://github.com/google/gson), to convert JSON to Java objects.
