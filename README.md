@@ -1,5 +1,6 @@
 # JavaAI is an open-source Java library for interacting with the OpenAI API
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/92eda89f2a5849d388d604d282e0d38e)](https://app.codacy.com/gh/artemnefedov/JavaAI?utm_source=github.com&utm_medium=referral&utm_content=artemnefedov/JavaAI&utm_campaign=Badge_Grade_Settings)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
