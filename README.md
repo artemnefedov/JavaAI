@@ -1,6 +1,6 @@
 # JavaAI is an open-source Java library for interacting with the OpenAI API
 
-[//]: # ([![Maven Central]&#40;https://img.shields.io/maven-central/v/io.github.artemnefedov/openaisdk.svg?label=Maven%20Central&#41;]&#40;https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22openaisdk%22&#41; )
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
