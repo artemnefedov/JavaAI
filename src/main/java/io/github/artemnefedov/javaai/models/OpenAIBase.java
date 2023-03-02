@@ -58,7 +58,7 @@ public class OpenAIBase {
     private String baseUrl = Config.getInstance().getProperties("url.openai.base");
 
     /**
-     * gson - used to serialize and deserialize JSON.
+     * GSON - used to serialize and deserialize JSON.
      */
     protected static Gson gson = new Gson();
 
