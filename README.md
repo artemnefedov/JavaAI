@@ -36,16 +36,14 @@ implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.2.3'
 
 ### 3. Initialize the language model in your project.
 ```java
-LanguageModel completions = new LanguageModel("YOUR_OPEN_AI_API-KEY");
+Completions completions = new Completions("YOUR_OPEN_AI_API-KEY");
 ```
 #### Check out the [Wiki page](https://github.com/artemnefedov/OpenAI/wiki/Initialize-the-language-model-in-your-project) for other ways
 
 ### 4. Set the query parameters and get the result from the OpenAI model.
 
 ```java
-completions.setPrompt("What is the first line programmers print?")
-
-String result = completions.generateText();
+String result = completions.generateText("What is the first line programmers print?");
 ```
 **Conclusion:** `The first line a programmer typically prints is "Hello World!"` 
 
