@@ -49,12 +49,9 @@ String result = completions.generateText("What is the first line programmers pri
 
 ---
 ## Models JavaAI can work with:
-### Language models
 - [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
 - [x] [Edits](https://platform.openai.com/docs/api-reference/edits)
 - [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
-
-### Image models
 - [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
 ---
 ## Outside Dependencies.
