@@ -1,5 +1,6 @@
 # JavaAI is an open-source Java library for interacting with the OpenAI API
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/openaisdk.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22openaisdk%22) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/openaisdk.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22openaisdk%22) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
 
@@ -15,13 +16,13 @@ Any help is welcome, I am always open to new ideas and criticism.
 ```xml
 <dependency>
     <groupId>io.github.artemnefedov</groupId>
-    <artifactId>openaisdk</artifactId>
-    <version>0.1.1</version>
+    <artifactId>javaai</artifactId>
+    <version>0.2.3</version>
 </dependency>
 ```
 #### Gradle:
 ```groovy
-implementation 'io.github.artemnefedov:openaisdk:0.1.1'
+implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.2.3'
 ```
 #### or download the JAR file from the [releases page](https://github.com/artemnefedov/OpenAI/releases)
 
@@ -44,8 +45,14 @@ String result = completions.generateText();
 **Conclusion:** `The first line a programmer typically prints is "Hello World!"` 
 
 ---
-## Only [GTP-3](https://platform.openai.com/docs/models/gpt-3) is supported at the moment, already working on making it work with DALL-E 2.
+## Models JavaAI can work with:
+### Language models
+- [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
+- [x] [Edits](https://platform.openai.com/docs/api-reference/edits)
+- [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
 
+### Image models
+- [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
 ---
 ## Outside Dependencies.
 #### This library uses [Gson](https://github.com/google/gson), to convert JSON to Java objects.
