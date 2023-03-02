@@ -28,7 +28,7 @@ _The package released to [Maven Central Repository](https://central.sonatype.com
 ```groovy
 implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.2.3'
 ```
-#### or download the JAR file from the [releases page](https://github.com/artemnefedov/OpenAI/releases)
+#### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI/releases)
 
 ### 2. Get the API key on the OpenAI website.
 [openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
