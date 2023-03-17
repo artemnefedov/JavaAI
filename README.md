@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cb32dd88d1fa4414a4e996e66f3d9c69)](https://www.codacy.com/gh/artemnefedov/JavaAI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=artemnefedov/JavaAI&amp;utm_campaign=Badge_Grade)
+
 
 ## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
 
