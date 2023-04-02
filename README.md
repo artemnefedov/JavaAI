@@ -54,10 +54,11 @@ messages.add(new ChatMessage("user", "Hello!"));
 
 String chatResponse = openAI.chat(messages);
 ```
-
-Notice:
 <br>
-You can always set your own parameters for models.
+
+**Notice:**
+<br>
+_You can always set your own parameters for models._
 <br>
 Example for ImageBuilder:
 ```java
