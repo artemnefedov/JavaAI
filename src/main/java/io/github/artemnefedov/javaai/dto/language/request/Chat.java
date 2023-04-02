@@ -25,7 +25,6 @@
 package io.github.artemnefedov.javaai.dto.language.request;
 
 import io.github.artemnefedov.javaai.dto.language.ChatMessage;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
