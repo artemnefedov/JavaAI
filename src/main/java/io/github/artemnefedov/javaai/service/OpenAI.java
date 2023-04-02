@@ -55,7 +55,7 @@ public interface OpenAI {
      * The method that generates text, taking into account chat messages,
      * uses a <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
      *
-     * @param messages List<{@link ChatMessage}> containing your chat by role.
+     * @param messages List of {@link ChatMessage}  containing your chat by role.
      * @return the response from the API as a string
      */
     public String chat(List<ChatMessage> messages);
