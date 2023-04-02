@@ -1,8 +1,8 @@
-# JavaAI is an open-source Java library for interacting with the OpenAI API(OLD_VERSION)
+<center><h1>JavaAI is an open-source Java library for interacting with the OpenAI API</h1></center>
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cb32dd88d1fa4414a4e996e66f3d9c69)](https://www.codacy.com/gh/artemnefedov/JavaAI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=artemnefedov/JavaAI&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1194ce221f4f46ed950d4b05e6fd248c)](https://app.codacy.com/gh/artemnefedov/JavaAI_OpenAI-SDK/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
 
@@ -15,47 +15,62 @@ Any help is welcome, I am always open to new ideas and criticism.
 
 ### 1. Import the library into your project.
 
-_The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai/0.2.3/)_
+_The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai/0.3.1)_
 
 #### Maven:
 ```xml
 <dependency>
     <groupId>io.github.artemnefedov</groupId>
     <artifactId>javaai</artifactId>
-    <version>0.2.3</version>
+    <version>0.3.1</version>
 </dependency>
 ```
 #### Gradle:
 ```groovy
-implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.2.3'
+implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.1'
 ```
-#### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI/releases)
+#### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI_OpenAI-SDK/releases)
 
 ### 2. Get the API key on the OpenAI website.
 [openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
 
-### 3. Initialize the language model in your project.
+### 3. Initialize OpenAI in the next project.
 ```java
-Completions completions = new Completions("YOUR_OPEN_AI_API-KEY");
+OpenAI openAI = new OpenAIImplementation("YOUR_OPEN_AI_API-KEY");
 ```
-#### Check out the [Wiki page](https://github.com/artemnefedov/JavaAI/wiki) for other ways
-
 ### 4. Set the query parameters and get the result from the OpenAI model.
 
 ```java
-String result = completions.generateText("What is the first line programmers print?");
+//Text generation, the model will return the response as a String
+String response = openAI.generateText("Say this is a test"))
+
+//Image generation, the model will return a URL/ to the result, as a String
+String imgURL = openAI.generateImage("A cute baby sea otter"));
+
+//Text generation, taking into account the dialogue (GPT-3.5), the model will return the answer as a String
+List<ChatMessage> messages = new ArrayList<>();
+
+messages.add(new ChatMessage("user", "Hello!"));
+
+String chatResponse = openAI.chat(messages);
 ```
-**Conclusion:** `The first line a programmer typically prints is "Hello World!"` 
+
+Notice:
+<br>
+You can always set your own parameters for models.
+<br>
+Example for ImageBuilder:
+```java
+ImageBuilder imageBuilder = new ImageBuilder(1, "1024x1024", "url");
+openAI.customImageBuilderConfig(imageBuilder);
+```
 
 ---
 ## Models JavaAI can work with:
-### Language models
 - [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
-- [x] [Edits](https://platform.openai.com/docs/api-reference/edits)
-- [ ] [Chat](https://platform.openai.com/docs/api-reference/chat)
-
-### Image models
+- [x] [Chat](https://platform.openai.com/docs/api-reference/chat)
 - [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
+
 ---
 ## Outside Dependencies.
 #### This library uses [Gson](https://github.com/google/gson), to convert JSON to Java objects.
