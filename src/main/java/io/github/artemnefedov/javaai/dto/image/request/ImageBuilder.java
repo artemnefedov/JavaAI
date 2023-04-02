@@ -24,11 +24,14 @@
 
 package io.github.artemnefedov.javaai.dto.image.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+/**
+ * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ImageBuilder {
 
     private String prompt;

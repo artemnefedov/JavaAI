@@ -30,6 +30,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * dto to accept {@link ChatChoice} response from OpenAI
+ */
 @Data
 public class ChatResponse {
 

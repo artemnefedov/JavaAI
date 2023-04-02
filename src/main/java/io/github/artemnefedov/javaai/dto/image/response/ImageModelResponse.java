@@ -29,6 +29,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * dto to accept {@link io.github.artemnefedov.javaai.dto.image.request.ImageBuilder} response from OpenAI
+ */
 @Data
 public class ImageModelResponse {
 

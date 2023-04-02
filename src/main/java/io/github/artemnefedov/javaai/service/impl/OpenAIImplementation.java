@@ -39,6 +39,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * The main class for interacting with JavaAI implements the {@link OpenAI} interface.
+ */
 @Getter
 @Setter
 public class OpenAIImplementation implements OpenAI {

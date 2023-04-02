@@ -26,6 +26,9 @@ package io.github.artemnefedov.javaai.dto.errors;
 
 import lombok.Data;
 
+/**
+ * Helper class for {@link io.github.artemnefedov.javaai.dto.errors.ErrorDetails}
+ */
 @Data
 public class Error {
 

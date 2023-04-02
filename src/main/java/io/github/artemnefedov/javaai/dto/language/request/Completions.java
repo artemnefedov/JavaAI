@@ -24,11 +24,18 @@
 
 package io.github.artemnefedov.javaai.dto.language.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+/**
+ * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/completions">Completions</a>.
+ */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Completions {
 
     private String model;

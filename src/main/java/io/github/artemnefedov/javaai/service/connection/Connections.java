@@ -38,6 +38,9 @@ import java.nio.charset.StandardCharsets;
 import static io.github.artemnefedov.javaai.service.connection.Converter.convertModelToJson;
 import static io.github.artemnefedov.javaai.service.connection.Converter.convertStreamToModel;
 
+/**
+ * The class responsible for communicating with the OpenAI API.
+ */
 @Getter
 @Setter
 public class Connections {

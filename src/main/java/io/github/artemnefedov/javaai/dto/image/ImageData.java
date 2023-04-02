@@ -27,6 +27,9 @@ package io.github.artemnefedov.javaai.dto.image;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Helper class for {@link io.github.artemnefedov.javaai.dto.image.response.ImageModelResponse}
+ */
 @Getter
 @Setter
 public class ImageData {

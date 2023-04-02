@@ -26,6 +26,9 @@ package io.github.artemnefedov.javaai.dto.language;
 
 import lombok.Data;
 
+/**
+ * Helper class for {@link io.github.artemnefedov.javaai.dto.language.response.LanguageModelResponse}
+ */
 @Data
 public class Usage {
 

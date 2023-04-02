@@ -28,6 +28,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Helper class for {@link io.github.artemnefedov.javaai.dto.language.ChatChoice}
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

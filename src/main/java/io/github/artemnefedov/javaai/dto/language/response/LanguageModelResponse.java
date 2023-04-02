@@ -30,6 +30,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * dto to accept {@link io.github.artemnefedov.javaai.dto.language.request.Completions} response from OpenAI
+ */
 @Data
 public class LanguageModelResponse {
 

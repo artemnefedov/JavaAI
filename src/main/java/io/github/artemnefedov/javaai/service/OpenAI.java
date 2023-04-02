@@ -33,23 +33,65 @@ import java.util.List;
 
 public interface OpenAI {
 
+    /**
+     * The method that generates the text interacts with the
+     * <a href="https://platform.openai.com/docs/api-reference/completions">Completions</a>.
+     *
+     * @param prompt parameters for text generation.
+     * @return the response from the API as a string
+     */
     public String generateText(String prompt);
 
+    /**
+     * The method that generates the image interacts with the
+     * <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
+     *
+     * @param prompt parameters for image generation.
+     * @return the response from the API as a string
+     */
     public String generateImage(String prompt);
 
+    /**
+     * The method that generates text, taking into account chat messages,
+     * uses a <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
+     *
+     * @param messages List<{@link ChatMessage}> containing your chat by role.
+     * @return the response from the API as a string
+     */
     public String chat(List<ChatMessage> messages);
 
+    /**
+     * Sets your dto to work with the API
+     * @param completions dto with your options.
+     */
     public void customCompetitionsConfig(Completions completions);
 
+    /**
+     * Sets your dto to work with the API
+     *
+     * @param imageBuilder dto with your options.
+     */
     public void customImageBuilderConfig(ImageBuilder imageBuilder);
 
+    /**
+     * Sets your dto to work with the API
+     *
+     * @param chat dto with your options.
+     */
     public void customChatConfig(Chat chat);
 
+    /**
+     * Sets default options for dto, usually this should be enough to get the job done.
+     */
     public void defaultCompetitionsConfig();
 
+    /**
+     * Sets default options for dto, usually this should be enough to get the job done.
+     */
     public void defaultImageBuilderConfig();
 
+    /**
+     * Sets default options for dto, usually this should be enough to get the job done.
+     */
     public void defaultChatConfig();
-
-
 }

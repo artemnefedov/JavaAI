@@ -26,6 +26,11 @@ package io.github.artemnefedov.javaai.dto.errors;
 
 import lombok.Data;
 
+/**
+ * dto to get errors from OpenAi API, everyone loves errors
+ *
+ * @author <a href="https://github.com/artemnefedov">Artyom Nefedov</a>.
+ */
 @Data
 public class ErrorDetails {
 

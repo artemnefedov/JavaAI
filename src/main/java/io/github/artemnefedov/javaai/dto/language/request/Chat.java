@@ -25,12 +25,19 @@
 package io.github.artemnefedov.javaai.dto.language.request;
 
 import io.github.artemnefedov.javaai.dto.language.ChatMessage;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
+ */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Chat {
 
     private String model;

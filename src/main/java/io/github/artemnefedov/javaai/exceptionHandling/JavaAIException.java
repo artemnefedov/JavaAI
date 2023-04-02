@@ -26,6 +26,9 @@ package io.github.artemnefedov.javaai.exceptionHandling;
 
 import java.io.IOException;
 
+/**
+ * Handler for exceptions received from the OpenAI API.
+ */
 public class JavaAIException extends IOException {
 
     public JavaAIException(String message) {
