@@ -54,6 +54,7 @@ messages.add(new ChatMessage("user", "Hello!"));
 
 String chatResponse = openAI.chat(messages);
 ```
+#### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI_OpenAI-SDK/tree/demo).
 <br>
 
 **Notice:**
@@ -62,7 +63,7 @@ String chatResponse = openAI.chat(messages);
 
 Example for ImageBuilder:
 ```java
-ImageBuilder imageBuilder = new ImageBuilder(1, "1024x1024", "url");
+ImageBuilder imageBuilder = new ImageBuilder( 1, "1024x1024", "url");
 openAI.customImageBuilderConfig(imageBuilder);
 ```
 
