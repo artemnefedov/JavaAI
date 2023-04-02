@@ -30,7 +30,6 @@ import lombok.*;
  * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class ImageBuilder {
 
@@ -39,4 +38,10 @@ public class ImageBuilder {
     private String size;
     private String response_format;
     private String user;
+
+    public ImageBuilder(int n, String size, String response_format) {
+        this.n = n;
+        this.size = size;
+        this.response_format = response_format;
+    }
 }

@@ -54,4 +54,12 @@ public class Completions {
     private int best_of;
     private Map<String, Integer> logit_bias;
     private String user;
+
+    public Completions(String model, int max_tokens, float temperature, byte n, int best_of) {
+        this.model = model;
+        this.max_tokens = max_tokens;
+        this.temperature = temperature;
+        this.n = n;
+        this.best_of = best_of;
+    }
 }

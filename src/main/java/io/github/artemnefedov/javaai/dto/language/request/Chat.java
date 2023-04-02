@@ -36,7 +36,6 @@ import java.util.Map;
  * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Chat {
 
@@ -52,4 +51,10 @@ public class Chat {
     private float frequency_penalty;
     private Map<String, Integer> logit_bias;
     private String user;
+
+    public Chat(String model, int n, int max_tokens) {
+        this.model = model;
+        this.n = n;
+        this.max_tokens = max_tokens;
+    }
 }
