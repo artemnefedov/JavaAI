@@ -68,16 +68,16 @@ openAI.customImageBuilderConfig(imageBuilder);
 
 ---
 ## Models JavaAI can work with:
-- [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
-- [x] [Chat](https://platform.openai.com/docs/api-reference/chat)
-- [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
+1. [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
+2. [x] [Chat](https://platform.openai.com/docs/api-reference/chat)
+3. [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
 
 ---
 ## Outside Dependencies.
-<h4>This library uses:</h4>
-[Gson](https://github.com/google/gson), to convert JSON to Java objects.<br>
-[lombok](https://github.com/projectlombok/lombok) to make the code clearer.<br>
-[junit](https://github.com/junit-team/junit5) for testing.
+#### This library uses:
+* [Gson](https://github.com/google/gson), to convert JSON to Java objects.<br>
+* [lombok](https://github.com/projectlombok/lombok) to make the code clearer.<br>
+* [junit](https://github.com/junit-team/junit5) for testing.
 
 ## License
 #### Distributed under the [MIT License](https://github.com/artemnefedov/OpenAI/blob/main/LICENSE)
