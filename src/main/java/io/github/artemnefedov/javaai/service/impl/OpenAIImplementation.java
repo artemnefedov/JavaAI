@@ -46,14 +46,12 @@ import java.util.List;
 @Setter
 public class OpenAIImplementation implements OpenAI {
 
-    private String baseURL = Config.getInstance()
-            .getProperties("url.openai.base");
-    private String compURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.completions");
-    private String imgBuilderURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.image_generator");
-    private String chatURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.chat");
+    private String baseURL = Config.getInstance().getProperties("url.openai.base");
+    private String compURL = baseURL + Config.getInstance().getProperties("url.openai.completions");
+    private String imgBuilderURL = baseURL + Config.getInstance().getProperties("url.openai.image_generator");
+    private String chatURL = baseURL + Config.getInstance().getProperties("url.openai.chat");
+
+
 
     protected Completions completions;
     protected ImageBuilder imageBuilder;
@@ -93,8 +91,6 @@ public class OpenAIImplementation implements OpenAI {
 
         ImageModelResponse imageResponse = connections
                 .postStream(imageBuilder, imgBuilderURL, ImageModelResponse.class);
-
-        System.out.println(imageResponse);
 
         if (imageBuilder.getResponse_format().equals("url")) {
 
