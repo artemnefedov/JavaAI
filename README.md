@@ -22,12 +22,12 @@ _The package released to [Maven Central Repository](https://central.sonatype.com
 <dependency>
     <groupId>io.github.artemnefedov</groupId>
     <artifactId>javaai</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 #### Gradle:
 ```groovy
-implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.1'
+implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.2'
 ```
 #### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI_OpenAI-SDK/releases)
 
@@ -73,7 +73,10 @@ openAI.customImageBuilderConfig(imageBuilder);
 
 ---
 ## Outside Dependencies.
-#### This library uses [Gson](https://github.com/google/gson), to convert JSON to Java objects.
+<h4>This library uses:</h4>
+[Gson](https://github.com/google/gson), to convert JSON to Java objects.<br>
+[lombok](https://github.com/projectlombok/lombok) to make the code clearer.<br>
+[junit](https://github.com/junit-team/junit5) for testing.
 
 ## License
 #### Distributed under the [MIT License](https://github.com/artemnefedov/OpenAI/blob/main/LICENSE)
