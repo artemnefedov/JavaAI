@@ -58,8 +58,8 @@ String chatResponse = openAI.chat(messages);
 
 **Notice:**
 <br>
-_You can always set your own parameters for models._
-<br>
+> You can always set your own parameters for models.
+
 Example for ImageBuilder:
 ```java
 ImageBuilder imageBuilder = new ImageBuilder(1, "1024x1024", "url");
