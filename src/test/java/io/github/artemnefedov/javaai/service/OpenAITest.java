@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class OpenAITest {
 
-    OpenAI openAI = new OpenAIImplementation("API_KEY");
+    OpenAI openAI = new OpenAIImplementation("YOUR_API_KEY");
 
     @Test
     void generateTextTest() {
