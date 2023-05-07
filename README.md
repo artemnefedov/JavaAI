@@ -1,8 +1,7 @@
-# JavaAI is an open-source Java library for interacting with the OpenAI API
+# JavaAI
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1194ce221f4f46ed950d4b05e6fd248c)](https://app.codacy.com/gh/artemnefedov/JavaAI_OpenAI-SDK/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
 
@@ -22,12 +21,12 @@ _The package released to [Maven Central Repository](https://central.sonatype.com
 <dependency>
     <groupId>io.github.artemnefedov</groupId>
     <artifactId>javaai</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
 </dependency>
 ```
 #### Gradle:
 ```groovy
-implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.2'
+implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.3'
 ```
 #### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI_OpenAI-SDK/releases)
 
@@ -54,7 +53,7 @@ messages.add(new ChatMessage("user", "Hello!"));
 
 String chatResponse = openAI.chat(messages);
 ```
-#### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI_OpenAI-SDK/tree/demo).
+#### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI/tree/demo).
 <br>
 
 **Notice:**
@@ -70,7 +69,7 @@ openAI.customImageBuilderConfig(imageBuilder);
 ---
 ## Models JavaAI can work with:
 1. [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
-2. [x] [Chat](https://platform.openai.com/docs/api-reference/chat)
+2. [x] [Chat-GPT](https://platform.openai.com/docs/api-reference/chat)
 3. [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
 
 ---
