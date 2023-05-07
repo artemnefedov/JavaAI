@@ -43,8 +43,8 @@ OpenAI openAI = new OpenAIImplementation("YOUR_OPEN_AI_API-KEY");
 //Text generation, the model will return the response as a String
 String response = openAI.generateText("Say this is a test"))
 
-//Image generation, the model will return a URL/ to the result, as a String
-String imgURL = openAI.generateImage("A cute baby sea otter"));
+//Image generation, the model will return a URL/ to the result, as a List of String
+List<String> imges = openAI.generateImage("A cute baby sea otter"));
 
 //Text generation, taking into account the dialogue (GPT-3.5), the model will return the answer as a String
 List<ChatMessage> messages = new ArrayList<>();
