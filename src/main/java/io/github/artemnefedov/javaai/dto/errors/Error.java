@@ -35,5 +35,5 @@ public class Error {
     private String message;
     private String type;
     private String param;
-    private int code;
+    private String code;
 }

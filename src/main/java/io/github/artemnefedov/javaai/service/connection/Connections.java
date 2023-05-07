@@ -65,7 +65,7 @@ public class Connections {
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 
-                String httpResponse = "Unexpected HTTP response: " + connection.getResponseMessage() + "\n";
+                String httpResponse = "Unexpected HTTP response: " + connection.getResponseCode() + ' ' + connection.getResponseMessage() + "\n";
                 ErrorDetails error = convertStreamToModel(connection.getErrorStream(), ErrorDetails.class);
 
                 throw new JavaAIException(httpResponse + error.getErrorDetails());

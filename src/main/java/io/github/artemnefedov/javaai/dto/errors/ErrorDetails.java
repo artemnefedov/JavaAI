@@ -48,7 +48,7 @@ public class ErrorDetails {
         if (this.error.getParam() != null) {
             errorMessage.append("\nparam: ").append(this.error.getParam());
         }
-        if (this.error.getCode() != 0) {
+        if (this.error.getCode() != null) {
             errorMessage.append("\ncode: ").append(this.error.getCode());
         }
 
