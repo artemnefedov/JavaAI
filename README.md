@@ -14,7 +14,7 @@ Any help is welcome, I am always open to new ideas and criticism.
 
 ### 1. Import the library into your project.
 
-_The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai/0.3.2)_
+_The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai)_
 
 #### Maven:
 ```xml
