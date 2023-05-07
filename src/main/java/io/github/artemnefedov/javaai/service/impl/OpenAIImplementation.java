@@ -24,6 +24,7 @@
 
 package io.github.artemnefedov.javaai.service.impl;
 
+import io.github.artemnefedov.javaai.dto.image.ImageData;
 import io.github.artemnefedov.javaai.dto.image.request.ImageBuilder;
 import io.github.artemnefedov.javaai.dto.image.response.ImageModelResponse;
 import io.github.artemnefedov.javaai.dto.language.request.Chat;
@@ -33,10 +34,10 @@ import io.github.artemnefedov.javaai.dto.language.ChatMessage;
 import io.github.artemnefedov.javaai.dto.language.request.Completions;
 import io.github.artemnefedov.javaai.dto.language.response.LanguageModelResponse;
 import io.github.artemnefedov.javaai.service.OpenAI;
-import io.github.artemnefedov.javaai.util.Config;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,16 +47,10 @@ import java.util.List;
 @Setter
 public class OpenAIImplementation implements OpenAI {
 
-    private String baseURL = Config.getInstance()
-            .getProperties("url.openai.base");
-    private String compURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.completions");
-    private String imgBuilderURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.image_generator");
-    private String chatURL = baseURL + Config.getInstance()
-            .getProperties("url.openai.chat");
-
-
+    private String baseURL = "https://api.openai.com";
+    private String compURL = baseURL + "/v1/completions";
+    private String imgBuilderURL = baseURL + "/v1/images/generations";
+    private String chatURL = baseURL + "/v1/chat/completions";
 
     protected Completions completions;
     protected ImageBuilder imageBuilder;
@@ -84,10 +79,12 @@ public class OpenAIImplementation implements OpenAI {
     }
 
     @Override
-    public String generateImage(String prompt) {
+    public List<String> generateImage(String prompt) {
 
+        List<String> images = new ArrayList<>();
 
         if (this.imageBuilder == null) {
+
             defaultImageBuilderConfig();
         }
 
@@ -96,19 +93,30 @@ public class OpenAIImplementation implements OpenAI {
         ImageModelResponse imageResponse = connections
                 .postStream(imageBuilder, imgBuilderURL, ImageModelResponse.class);
 
-        if (imageBuilder.getResponse_format().equals("url")) {
 
-            return imageResponse.getData().get(0).getUrl();
-        } else {
+            if (imageBuilder.getResponse_format().equals("url")) {
 
-            return imageResponse.getData().get(0).getB64Json();
-        }
+                for (ImageData data : imageResponse.getData()) {
+
+                    images.add(data.getUrl());
+                }
+            } else {
+
+                for (ImageData data : imageResponse.getData()) {
+
+                    images.add(data.getB64Json());
+                }
+            }
+
+        return images;
     }
+
 
     @Override
     public String chat(List<ChatMessage> messages) {
 
         if (this.chat == null) {
+
             defaultChatConfig();
         }
 

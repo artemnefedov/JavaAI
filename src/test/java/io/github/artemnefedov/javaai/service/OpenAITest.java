@@ -27,9 +27,7 @@ package io.github.artemnefedov.javaai.service;
 import io.github.artemnefedov.javaai.dto.language.ChatMessage;
 import io.github.artemnefedov.javaai.dto.language.request.Completions;
 import io.github.artemnefedov.javaai.service.impl.OpenAIImplementation;
-import io.github.artemnefedov.javaai.util.Config;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -41,14 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class OpenAITest {
 
-    OpenAI openAI = new OpenAIImplementation(null);
-
-
-    @BeforeEach
-    void newOpenAI() {
-
-        OpenAI openAI = new OpenAIImplementation(Config.getInstance().getProperties("api_key.openai"));
-    }
+    OpenAI openAI = new OpenAIImplementation("API_KEY");
 
     @Test
     void generateTextTest() {
@@ -59,8 +50,12 @@ class OpenAITest {
     @Test
     void generateImageTest() {
 
-        String response = openAI.generateImage("A cute baby sea otter");
-        assertTrue( response != null && response.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
+        List<String> response = openAI.generateImage("A cute baby sea otter");
+
+        for (String url: response) {
+            assertTrue( url != null && url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
+        }
+
     }
 
     @Test

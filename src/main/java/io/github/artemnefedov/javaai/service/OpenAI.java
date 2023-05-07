@@ -40,16 +40,16 @@ public interface OpenAI {
      * @param prompt parameters for text generation.
      * @return the response from the API as a string
      */
-    public String generateText(String prompt);
+    String generateText(String prompt);
 
     /**
      * The method that generates the image interacts with the
      * <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
      *
      * @param prompt parameters for image generation.
-     * @return the response from the API as a string
+     * @return the response from the API as a List of strings
      */
-    public String generateImage(String prompt);
+    List<String> generateImage(String prompt);
 
     /**
      * The method that generates text, taking into account chat messages,
@@ -58,40 +58,40 @@ public interface OpenAI {
      * @param messages List of {@link ChatMessage}  containing your chat by role.
      * @return the response from the API as a string
      */
-    public String chat(List<ChatMessage> messages);
+    String chat(List<ChatMessage> messages);
 
     /**
      * Sets your dto to work with the API
      * @param completions dto with your options.
      */
-    public void customCompetitionsConfig(Completions completions);
+    void customCompetitionsConfig(Completions completions);
 
     /**
      * Sets your dto to work with the API
      *
      * @param imageBuilder dto with your options.
      */
-    public void customImageBuilderConfig(ImageBuilder imageBuilder);
+    void customImageBuilderConfig(ImageBuilder imageBuilder);
 
     /**
      * Sets your dto to work with the API
      *
      * @param chat dto with your options.
      */
-    public void customChatConfig(Chat chat);
+    void customChatConfig(Chat chat);
 
     /**
      * Sets default options for dto, usually this should be enough to get the job done.
      */
-    public void defaultCompetitionsConfig();
+    void defaultCompetitionsConfig();
 
     /**
      * Sets default options for dto, usually this should be enough to get the job done.
      */
-    public void defaultImageBuilderConfig();
+    void defaultImageBuilderConfig();
 
     /**
      * Sets default options for dto, usually this should be enough to get the job done.
      */
-    public void defaultChatConfig();
+    void defaultChatConfig();
 }
