@@ -80,5 +80,5 @@ openAI.customImageBuilderConfig(imageBuilder);
 * [junit](https://github.com/junit-team/junit5) for testing.
 
 ## License
-#### Distributed under the [MIT License](https://github.com/artemnefedov/OpenAI/blob/main/LICENSE)
+#### Distributed under the [MIT License](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
 # JavaAI
