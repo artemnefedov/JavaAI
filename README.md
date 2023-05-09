@@ -12,7 +12,7 @@ Any help is welcome, I am always open to new ideas and criticism.
 ## How to use it?
 
 
-### 1. Import the library into your project.
+### Import the library
 
 _The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai)_
 
@@ -30,14 +30,11 @@ implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.3'
 ```
 #### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI/releases)
 
-### 2. Get the API key on the OpenAI website.
-[openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
-
-### 3. Initialize OpenAI in the next project.
+### Initialize OpenAI
 ```java
 OpenAI openAI = new OpenAIImplementation("YOUR_OPEN_AI_API-KEY");
 ```
-### 4. Set the query parameters and get the result from the OpenAI model.
+### Set the query parameters and get the result from the OpenAI model.
 
 ```java
 //Text generation, the model will return the response as a String
@@ -81,4 +78,3 @@ openAI.customImageBuilderConfig(imageBuilder);
 
 ## License
 #### Distributed under the [MIT License](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
-# JavaAI
