@@ -3,11 +3,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## The JavaAI Java SDK is a non-official open source library that allows Java developers to interact with OpenAI models with just a few lines of code.
+## JavaAI is an open source library that allows you to interact with OpenAI models with just a few lines of code
 
 #### Note:
-> I wrote this library for myself because I couldn't find anything more convenient, so I decided to share my project with the community. I hope that I can help someone.
-Any help is welcome, I am always open to new ideas and criticism.
+> I wrote this library for myself since I couldn't find anything more suitable for my project, so I decided to share it with the community. I hope this library will help you.<br>
+Any help is welcome. I am always glad to hear new ideas and criticism.
 
 ## How to use it?
 
@@ -31,7 +31,7 @@ implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.3'
 ```java
 OpenAI openAI = new OpenAIImplementation("YOUR_OPEN_AI_API-KEY");
 ```
-### Set the query parameters and get the result from the OpenAI model.
+### Set the query parameters and get the result from the OpenAI model
 
 ```java
 //Text generation, the model will return the response as a String
@@ -47,12 +47,12 @@ messages.add(new ChatMessage("user", "Hello!"));
 
 String chatResponse = openAI.chat(messages);
 ```
-#### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI/tree/demo).
+#### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI/tree/demo)
 <br>
 
 **Notice:**
 <br>
-> You can always set your own parameters for models.
+> You can always set your parameters for the models
 
 Example for ImageBuilder:
 ```java
@@ -61,7 +61,7 @@ openAI.customImageBuilderConfig(imageBuilder);
 ```
 
 ---
-## Models JavaAI can work with:
+## Models that JavaAI works with:
 1. [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
 2. [x] [Chat-GPT](https://platform.openai.com/docs/api-reference/chat)
 3. [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
