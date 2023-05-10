@@ -14,8 +14,6 @@ Any help is welcome, I am always open to new ideas and criticism.
 
 ### Import the library
 
-_The package released to [Maven Central Repository](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai)_
-
 #### Maven:
 ```xml
 <dependency>
@@ -28,7 +26,6 @@ _The package released to [Maven Central Repository](https://central.sonatype.com
 ```groovy
 implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.3'
 ```
-#### or download the JAR file from the [releases page](https://github.com/artemnefedov/JavaAI/releases)
 
 ### Initialize OpenAI
 ```java
