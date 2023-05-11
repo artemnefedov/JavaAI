@@ -50,6 +50,8 @@ String chatResponse = openAI.chat(messages);
 #### Just in case, I added a [demo](https://github.com/artemnefedov/JavaAI/tree/demo)
 <br>
 
+---
+
 **Notice:**
 <br>
 > You can always set your parameters for the models
