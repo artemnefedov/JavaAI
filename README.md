@@ -11,7 +11,6 @@ Any help is welcome. I am always glad to hear new ideas and criticism.
 
 ## How to use it?
 
-
 ### Import the library
 
 #### Maven:
