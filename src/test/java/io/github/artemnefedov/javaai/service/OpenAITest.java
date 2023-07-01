@@ -24,8 +24,8 @@
 
 package io.github.artemnefedov.javaai.service;
 
-import io.github.artemnefedov.javaai.dto.language.ChatMessage;
-import io.github.artemnefedov.javaai.dto.language.request.Completions;
+import io.github.artemnefedov.javaai.dto.ChatMessage;
+import io.github.artemnefedov.javaai.dto.Completions;
 import io.github.artemnefedov.javaai.service.impl.OpenAIImplementation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -41,23 +41,30 @@ class OpenAITest {
 
     OpenAI openAI = new OpenAIImplementation("YOUR_API_KEY");
 
+    /**
+     * Generate text test.
+     */
     @Test
     void generateTextTest() {
 
         assertEquals("This is indeed a test.", openAI.generateText("Say this is a test"));
     }
 
+    /**
+     * Generate image test.
+     */
     @Test
     void generateImageTest() {
 
-        List<String> response = openAI.generateImage("A cute baby sea otter");
+        String response = openAI.generateImage("A cute baby sea otter");
 
-        for (String url: response) {
-            assertTrue( url != null && url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
-        }
+        assertTrue(response != null && response.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
 
     }
 
+    /**
+     * Chat test.
+     */
     @Test
     void chatTest() {
 
@@ -67,16 +74,22 @@ class OpenAITest {
         assertEquals("The capital of Armenia is Yerevan.", openAI.chat(messages));
     }
 
+    /**
+     * Custom competitions config test.
+     */
     @Test
     void customCompetitionsConfigTest() {
 
         Completions completions =
                 new Completions("text-curie-001", 7, 0.1f, (byte) 1, 1);
-        openAI.customCompetitionsConfig(completions);
+        openAI.setCompletions(completions);
 
         assertEquals("This is a test.", openAI.generateText("Say this is a test"));
     }
 
+    /**
+     * Clear OpenAi.
+     */
     @AfterEach
     void clearOpenAI() {
 

@@ -24,163 +24,121 @@
 
 package io.github.artemnefedov.javaai.service.impl;
 
-import io.github.artemnefedov.javaai.dto.image.ImageData;
-import io.github.artemnefedov.javaai.dto.image.request.ImageBuilder;
-import io.github.artemnefedov.javaai.dto.image.response.ImageModelResponse;
-import io.github.artemnefedov.javaai.dto.language.request.Chat;
-import io.github.artemnefedov.javaai.dto.language.response.ChatResponse;
-import io.github.artemnefedov.javaai.service.connection.Connections;
-import io.github.artemnefedov.javaai.dto.language.ChatMessage;
-import io.github.artemnefedov.javaai.dto.language.request.Completions;
-import io.github.artemnefedov.javaai.dto.language.response.LanguageModelResponse;
+import io.github.artemnefedov.javaai.dto.ImageBuilder;
+import io.github.artemnefedov.javaai.dto.Chat;
+import io.github.artemnefedov.javaai.dto.ChatMessage;
+import io.github.artemnefedov.javaai.dto.Completions;
 import io.github.artemnefedov.javaai.service.OpenAI;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
  * The main class for interacting with JavaAI implements the {@link OpenAI} interface.
  */
-@Getter
-@Setter
+@Slf4j
 public class OpenAIImplementation implements OpenAI {
 
-    private String baseURL = "https://api.openai.com";
-    private String compURL = baseURL + "/v1/completions";
-    private String imgBuilderURL = baseURL + "/v1/images/generations";
-    private String chatURL = baseURL + "/v1/chat/completions";
+    private URL completionsURL;
+    private URL imgBuilderURL;
+    private URL chatURL;
 
-    protected Completions completions;
-    protected ImageBuilder imageBuilder;
-    protected Chat chat;
+    private Completions completions;
+    private ImageBuilder imageBuilder;
+    private Chat chat;
 
-    protected final Connections connections = new Connections();
+    private final Connection connection;
 
+    /**
+     * Instantiates a new OpenAi implementation.
+     *
+     * @param API_KEY the api key
+     */
     public OpenAIImplementation(String API_KEY) {
 
-        this.connections.setAPI_KEY(API_KEY);
+        this.connection = new Connection(API_KEY);
+        this.postConstruct();
     }
 
     @Override
     public String generateText(String prompt) {
 
-        if (this.completions == null) {
-            defaultCompetitionsConfig();
-        }
+        this.completions.setPrompt(prompt);
 
-        completions.setPrompt(prompt);
-
-        LanguageModelResponse languageResponse = connections
-                .postStream(completions, compURL, LanguageModelResponse.class);
-
-        return languageResponse.getChoices().get(0).getText().trim();
+        return connection
+                .sendPost(this.completions, completionsURL, completions.getResponseModel())
+                .getResponse();
     }
 
     @Override
-    public List<String> generateImage(String prompt) {
+    public String generateImage(String prompt) {
 
-        List<String> images = new ArrayList<>();
+        this.imageBuilder.setPrompt(prompt);
 
-        if (this.imageBuilder == null) {
-
-            defaultImageBuilderConfig();
-        }
-
-        imageBuilder.setPrompt(prompt);
-
-        ImageModelResponse imageResponse = connections
-                .postStream(imageBuilder, imgBuilderURL, ImageModelResponse.class);
-
-
-            if (imageBuilder.getResponse_format().equals("url")) {
-
-                for (ImageData data : imageResponse.getData()) {
-
-                    images.add(data.getUrl());
-                }
-            } else {
-
-                for (ImageData data : imageResponse.getData()) {
-
-                    images.add(data.getB64Json());
-                }
-            }
-
-        return images;
+        return connection
+                .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
+                .getResponse();
     }
-
 
     @Override
     public String chat(List<ChatMessage> messages) {
 
-        if (this.chat == null) {
+        this.chat.setMessages(messages);
 
-            defaultChatConfig();
-        }
-
-        chat.setMessages(messages);
-
-        ChatResponse chatResponse = connections
-                .postStream(chat, chatURL, ChatResponse.class);
-
-        return chatResponse.getChoices().get(0).getMessage().getContent().trim();
-    }
-
-    @Override
-    public void customCompetitionsConfig(Completions completions) {
-
-        this.completions = completions;
-    }
-
-    @Override
-    public void customImageBuilderConfig(ImageBuilder imageBuilder) {
-
-        this.imageBuilder = imageBuilder;
-    }
-
-    @Override
-    public void customChatConfig(Chat chat) {
-
-        this.chat = chat;
+        return connection
+                .sendPost(this.chat, chatURL, chat.getResponseModel())
+                .getResponse();
     }
 
     @Override
     public void defaultCompetitionsConfig() {
 
-        Completions dafaultCompletions = new Completions();
-
-        dafaultCompletions.setModel("text-davinci-003");
-        dafaultCompletions.setMax_tokens(2000);
-        dafaultCompletions.setTemperature(0.9f);
-        dafaultCompletions.setN((byte) 1);
-        dafaultCompletions.setBest_of(1);
-
-        this.completions = dafaultCompletions;
-    }
-
-    @Override
-    public void defaultImageBuilderConfig() {
-
-        ImageBuilder defaultImgBuilder = new ImageBuilder();
-
-        defaultImgBuilder.setN(1);
-        defaultImgBuilder.setSize("1024x1024");
-        defaultImgBuilder.setResponse_format("url");
-
-        this.imageBuilder = defaultImgBuilder;
+        this.completions = Completions.builder()
+                .model("text-davinci-003")
+                .maxTokens(2000)
+                .temperature(0.9f)
+                .n((byte) 1)
+                .bestOf(1)
+                .build();
     }
 
     @Override
     public void defaultChatConfig() {
 
-        Chat defaultChat = new Chat();
+        this.chat = Chat.builder()
+                .model("gpt-3.5-turbo")
+                .maxTokens(2000)
+                .n(1)
+                .build();
+    }
 
-        defaultChat.setModel("gpt-3.5-turbo");
-        defaultChat.setMax_tokens(2000);
-        defaultChat.setN(1);
+    @Override
+    public void setCompletions(Completions completions) {
+        this.completions = completions;
+    }
 
-        this.chat = defaultChat;
+    @Override
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    private void postConstruct() {
+
+        try {
+
+            var baseURL = new URL("https://api.openai.com");
+            this.completionsURL = new URL(baseURL + "/v1/completions");
+            this.imgBuilderURL = new URL(baseURL + "/v1/images/generations");
+            this.chatURL = new URL(baseURL + "/v1/chat/completions");
+        } catch (MalformedURLException exception) {
+
+            log.error(exception.getMessage());
+        }
+
+        this.imageBuilder = new ImageBuilder();
+        defaultCompetitionsConfig();
+        defaultChatConfig();
     }
 }

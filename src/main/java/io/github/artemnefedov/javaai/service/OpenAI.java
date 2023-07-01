@@ -24,13 +24,15 @@
 
 package io.github.artemnefedov.javaai.service;
 
-import io.github.artemnefedov.javaai.dto.image.request.ImageBuilder;
-import io.github.artemnefedov.javaai.dto.language.ChatMessage;
-import io.github.artemnefedov.javaai.dto.language.request.Chat;
-import io.github.artemnefedov.javaai.dto.language.request.Completions;
+import io.github.artemnefedov.javaai.dto.ChatMessage;
+import io.github.artemnefedov.javaai.dto.Chat;
+import io.github.artemnefedov.javaai.dto.Completions;
 
 import java.util.List;
 
+/**
+ * The main class for interacting with JavaAI implements the {@link OpenAI} interface.
+ */
 public interface OpenAI {
 
     /**
@@ -47,9 +49,9 @@ public interface OpenAI {
      * <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
      *
      * @param prompt parameters for image generation.
-     * @return the response from the API as a List of strings
+     * @return the response from the API as a string(url)
      */
-    List<String> generateImage(String prompt);
+    String generateImage(String prompt);
 
     /**
      * The method that generates text, taking into account chat messages,
@@ -64,31 +66,19 @@ public interface OpenAI {
      * Sets your dto to work with the API
      * @param completions dto with your options.
      */
-    void customCompetitionsConfig(Completions completions);
-
-    /**
-     * Sets your dto to work with the API
-     *
-     * @param imageBuilder dto with your options.
-     */
-    void customImageBuilderConfig(ImageBuilder imageBuilder);
+    void setCompletions(Completions completions);
 
     /**
      * Sets your dto to work with the API
      *
      * @param chat dto with your options.
      */
-    void customChatConfig(Chat chat);
+    void setChat(Chat chat);
 
     /**
      * Sets default options for dto, usually this should be enough to get the job done.
      */
     void defaultCompetitionsConfig();
-
-    /**
-     * Sets default options for dto, usually this should be enough to get the job done.
-     */
-    void defaultImageBuilderConfig();
 
     /**
      * Sets default options for dto, usually this should be enough to get the job done.
