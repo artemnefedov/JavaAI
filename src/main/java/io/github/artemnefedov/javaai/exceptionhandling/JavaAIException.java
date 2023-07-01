@@ -22,7 +22,7 @@
  *  SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.exceptionHandling;
+package io.github.artemnefedov.javaai.exceptionhandling;
 
 import java.io.IOException;
 
@@ -31,6 +31,11 @@ import java.io.IOException;
  */
 public class JavaAIException extends IOException {
 
+    /**
+     * Instantiates a new JavaAi exception.
+     *
+     * @param message the message
+     */
     public JavaAIException(String message) {
         super(message);
     }
