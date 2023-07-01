@@ -6,26 +6,18 @@
 
     <groupId>io.github.artemnefedov</groupId>
     <artifactId>javaai</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4</version>
     <packaging>jar</packaging>
 
     <name>JavaAI</name>
     <description>JavaAI is an open-source Java library for interacting with the OpenAI API</description>
     <url>https://github.com/artemnefedov/JavaAI</url>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/artemnefedov/JavaAI/issues</url>
-    </issueManagement>
-
     <licenses>
         <license>
-            <name>The MIT License</name>
-            <url>https://github.com/artemnefedov/JavaAI/blob/main/LICENSE</url>
-            <distribution>repo</distribution>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
-
     <developers>
         <developer>
             <name>Artyom Nefedov</name>
@@ -33,20 +25,30 @@
         </developer>
     </developers>
 
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/artemnefedov/JavaAI/issues</url>
+    </issueManagement>
+
     <scm>
         <connection>scm:git:git://github.com/artemnefedov/JavaAI.git</connection>
         <developerConnection>scm:git:ssh://github.com:artemnefedov/JavaAI.git</developerConnection>
         <url>https://github.com/artemnefedov/JavaAI/tree/main</url>
     </scm>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonar.organization>artemnefedov</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    </properties>
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -54,12 +56,19 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.28</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.8</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -69,126 +78,73 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.13</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.3.0</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.5.0</version>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.1.0</version>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <gpgArguments>
-                            <gpgArgument>--pinentry-mode</gpgArgument>
-                            <gpgArgument>loopback</gpgArgument>
-                        </gpgArguments>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.13</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.0</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.5.0</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <name>Central Repository OSSRH</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
 </project>
