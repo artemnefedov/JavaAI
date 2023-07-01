@@ -22,36 +22,57 @@
  *  SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.dto.errors;
+package io.github.artemnefedov.javaai.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * dto to get errors from OpenAi API, everyone loves errors
  *
  * @author <a href="https://github.com/artemnefedov">Artyom Nefedov</a>.
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class ErrorDetails {
 
     private Error error;
 
+    /**
+     * Generates a detailed error report
+     *
+     * @return error details as String
+     */
     public String getErrorDetails() {
 
         StringBuilder errorMessage = new StringBuilder();
-        errorMessage.append("Error details: ");
-        errorMessage.append("\nmessage: ").append(this.error.getMessage());
 
-        if (this.error.getType() != null) {
-            errorMessage.append("\ntype: ").append(this.error.getType());
+        errorMessage.append("Error details: ");
+        errorMessage.append("\nmessage: ").append(this.error.message());
+
+        if (this.error.type() != null) {
+            errorMessage.append("\ntype: ").append(this.error.type());
         }
-        if (this.error.getParam() != null) {
-            errorMessage.append("\nparam: ").append(this.error.getParam());
+        if (this.error.param() != null) {
+            errorMessage.append("\nparam: ").append(this.error.param());
         }
-        if (this.error.getCode() != null) {
-            errorMessage.append("\ncode: ").append(this.error.getCode());
+        if (this.error.code() != null) {
+            errorMessage.append("\ncode: ").append(this.error.code());
         }
 
         return errorMessage.toString();
+    }
+
+    /**
+     * The type Error.
+     */
+    public record Error(
+            String message,
+            String type,
+            String param,
+            String code
+    ) {
     }
 }

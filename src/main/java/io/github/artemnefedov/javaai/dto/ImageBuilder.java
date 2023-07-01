@@ -22,17 +22,55 @@
  *  SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.dto.language;
+package io.github.artemnefedov.javaai.dto;
 
+import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
- * Helper class for {@link io.github.artemnefedov.javaai.dto.language.response.LanguageModelResponse}
+ * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
  */
 @Data
-public class Usage {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ImageBuilder implements OpenAIModel {
 
-    private int promptTokens;
-    private int completionTokens;
-    private int totalTokens;
+    private String prompt;
+    private final int n = 1;
+    private final String size = "1024x1024";
+    @SerializedName("response_format")
+    private final String responseFormat = "url";
+
+    @Override
+    public Class<? extends ModelResponse> getResponseModel() {
+        return ImageModelResponse.class;
+    }
+
+    public record ImageModelResponse(
+            long created,
+            List<ImageData> data
+
+    ) implements ModelResponse {
+
+        @Override
+        public String getResponse() {
+
+            return this.data.get(0).url();
+        }
+
+        /**
+         * The type Image data.
+         */
+        public record ImageData(
+                String url,
+                String b64Json
+        ) {
+        }
+    }
 }

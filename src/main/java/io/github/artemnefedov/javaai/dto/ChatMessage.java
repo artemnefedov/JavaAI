@@ -22,16 +22,19 @@
  *  SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.dto.language;
+package io.github.artemnefedov.javaai.dto;
+
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * Helper class for {@link io.github.artemnefedov.javaai.dto.language.ChatChoice}
+ * Helper class for {@link io.github.artemnefedov.javaai.dto.Chat}
  */
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatMessage {
