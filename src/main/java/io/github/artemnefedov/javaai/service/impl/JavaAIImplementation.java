@@ -28,18 +28,20 @@ import io.github.artemnefedov.javaai.dto.ImageBuilder;
 import io.github.artemnefedov.javaai.dto.Chat;
 import io.github.artemnefedov.javaai.dto.ChatMessage;
 import io.github.artemnefedov.javaai.dto.Completions;
-import io.github.artemnefedov.javaai.service.OpenAI;
+import io.github.artemnefedov.javaai.exceptionhandling.JavaAIException;
+import io.github.artemnefedov.javaai.service.JavaAI;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The main class for interacting with JavaAI implements the {@link OpenAI} interface.
+ * The main class for interacting with JavaAI implements the {@link JavaAI} interface.
  */
 @Slf4j
-public class OpenAIImplementation implements OpenAI {
+public class JavaAIImplementation implements JavaAI {
 
     private URL completionsURL;
     private URL imgBuilderURL;
@@ -56,7 +58,7 @@ public class OpenAIImplementation implements OpenAI {
      *
      * @param API_KEY the api key
      */
-    public OpenAIImplementation(String API_KEY) {
+    public JavaAIImplementation(String API_KEY) {
 
         this.connection = new Connection(API_KEY);
         this.postConstruct();
@@ -65,31 +67,84 @@ public class OpenAIImplementation implements OpenAI {
     @Override
     public String generateText(String prompt) {
 
+        var response = "";
+
         this.completions.setPrompt(prompt);
 
-        return connection
-                .sendPost(this.completions, completionsURL, completions.getResponseModel())
-                .getResponse();
+        try {
+            response = connection
+                    .sendPost(this.completions, completionsURL, completions.getResponseModel())
+                    .getResponse();
+
+        } catch (JavaAIException aiException) {
+            log.error(aiException.getMessage());
+        }
+        return response;
     }
 
     @Override
     public String generateImage(String prompt) {
 
+        var response = "";
+
         this.imageBuilder.setPrompt(prompt);
 
-        return connection
-                .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
-                .getResponse();
+        try {
+            response = connection
+                    .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
+                    .getResponse();
+
+        } catch (JavaAIException aiException) {
+            log.error(aiException.getMessage());
+        }
+        return response;
     }
 
     @Override
     public String chat(List<ChatMessage> messages) {
 
-        this.chat.setMessages(messages);
+        var response = "";
 
-        return connection
-                .sendPost(this.chat, chatURL, chat.getResponseModel())
-                .getResponse();
+        messages.forEach(msg -> this.chat.getMessages().add(msg));
+
+        try {
+
+            var chatResponse = (Chat.ChatResponse) connection
+                    .sendPost(this.chat, chatURL, chat.getResponseModel());
+
+            this.chat.getMessages().add(chatResponse.choices().get(0).message());
+
+            response = chatResponse.getResponse();
+
+        } catch (JavaAIException aiException) {
+
+            log.error(aiException.getMessage());
+        }
+        return response;
+    }
+
+    @Override
+    public String chat(String userMessage) {
+
+
+        var response = "";
+
+        this.chat.getMessages().add(new ChatMessage("user", userMessage));
+
+        try {
+
+            var chatResponse = (Chat.ChatResponse) connection
+                    .sendPost(this.chat, chatURL, chat.getResponseModel());
+
+            this.chat.getMessages().add(chatResponse.choices().get(0).message());
+
+            response = chatResponse.getResponse();
+
+        } catch (JavaAIException aiException) {
+
+            log.error(aiException.getMessage());
+        }
+        return response;
     }
 
     @Override
@@ -108,6 +163,7 @@ public class OpenAIImplementation implements OpenAI {
     public void defaultChatConfig() {
 
         this.chat = Chat.builder()
+                .messages(new ArrayList<>())
                 .model("gpt-3.5-turbo")
                 .maxTokens(2000)
                 .n(1)
@@ -140,5 +196,9 @@ public class OpenAIImplementation implements OpenAI {
         this.imageBuilder = new ImageBuilder();
         defaultCompetitionsConfig();
         defaultChatConfig();
+    }
+
+    public static JavaAI javaAiBuilder(String apiKey) {
+        return new JavaAIImplementation(apiKey);
     }
 }

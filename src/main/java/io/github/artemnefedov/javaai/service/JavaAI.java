@@ -31,9 +31,9 @@ import io.github.artemnefedov.javaai.dto.Completions;
 import java.util.List;
 
 /**
- * The main class for interacting with JavaAI implements the {@link OpenAI} interface.
+ * The main class for interacting with JavaAI implements the {@link JavaAI} interface.
  */
-public interface OpenAI {
+public interface JavaAI {
 
     /**
      * The method that generates the text interacts with the
@@ -61,6 +61,15 @@ public interface OpenAI {
      * @return the response from the API as a string
      */
     String chat(List<ChatMessage> messages);
+
+    /**
+     * The method that generates text, taking into account chat messages,
+     * uses a <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
+     *
+     * @param userMessage your message with the user role.
+     * @return the response from the API as a string
+     */
+    String chat(String userMessage);
 
     /**
      * Sets your dto to work with the API
