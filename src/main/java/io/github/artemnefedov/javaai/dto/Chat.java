@@ -87,7 +87,7 @@ public class Chat implements OpenAIModel {
             Usage usage
     ) implements ModelResponse {
 
-        record ChatChoice(
+        public record ChatChoice(
                 int index,
                 ChatMessage message,
                 String finishReason
