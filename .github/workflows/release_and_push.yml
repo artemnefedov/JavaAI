@@ -38,7 +38,7 @@ jobs:
       uses: ncipollo/release-action@v1.12.0
       with:
           allowUpdates: true
-          artifacts: "${{ github.workspace }}/target/*.jar"
+          artifacts: "/home/runner/work/JavaAI/JavaAI/target/*.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Publish to the Maven Central Repository
