@@ -5,6 +5,8 @@ name: release and push to maven central repo
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '*'
 
