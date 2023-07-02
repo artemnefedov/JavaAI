@@ -32,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,7 +40,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * The class responsible for communicating with the OpenAI API.
+ * The class responsible for communicating with the JavaAI API.
  */
 @Slf4j
 public class Connection {
@@ -68,9 +67,11 @@ public class Connection {
      * @param response    the response
      * @return the t
      */
-    <T> T sendPost(OpenAIModel openAiModel, URL url, Class<T> response) {
+    <T> T sendPost(OpenAIModel openAiModel, URL url, Class<T> response) throws JavaAIException {
 
         var json = gson.toJson(openAiModel);
+
+        Reader streamReader;
 
         try {
 
@@ -81,32 +82,29 @@ public class Connection {
             connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
             connection.setDoOutput(true);
 
-            try (OutputStream outputStream = connection.getOutputStream()) {
-                outputStream.write(json.getBytes(UTF_8));
+            try (var outputStream = connection.getOutputStream()) {
+                outputStream.write(gson
+                        .toJson(openAiModel)
+                        .getBytes(UTF_8));
             }
 
             if (connection.getResponseCode() != HTTP_OK) {
 
-                String httpResponse = "Unexpected HTTP response: " + connection.getResponseCode() + ' ' + connection.getResponseMessage() + "\n";
+                var httpResponse = "Unexpected HTTP response: " + connection.getResponseCode() + ' ' + connection.getResponseMessage() + "\n";
 
-                Reader streamReader = new InputStreamReader(connection.getInputStream(), UTF_8);
+                streamReader = new InputStreamReader(connection.getErrorStream(), UTF_8);
 
                 var errors = gson.fromJson(streamReader, ErrorDetails.class);
-
-                System.out.println(errors.getErrorDetails());
 
                 throw new JavaAIException(httpResponse + errors.getErrorDetails());
             }
 
-            Reader streamReader = new InputStreamReader(connection.getInputStream(), UTF_8);
-
-            return gson.fromJson(streamReader, response);
+            streamReader = new InputStreamReader(connection.getInputStream(), UTF_8);
 
         } catch (IOException exception) {
 
-            log.error(exception.getMessage());
+            throw new JavaAIException(exception.getMessage());
         }
-
-        return null;
+        return gson.fromJson(streamReader, response);
     }
 }

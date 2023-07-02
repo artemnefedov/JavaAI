@@ -50,16 +50,16 @@ public class ErrorDetails {
         StringBuilder errorMessage = new StringBuilder();
 
         errorMessage.append("Error details: ");
-        errorMessage.append("\nmessage: ").append(this.error.message());
+        errorMessage.append("\n\t\tmessage: ").append(this.error.message());
 
         if (this.error.type() != null) {
-            errorMessage.append("\ntype: ").append(this.error.type());
+            errorMessage.append("\n\t\ttype: ").append(this.error.type());
         }
         if (this.error.param() != null) {
-            errorMessage.append("\nparam: ").append(this.error.param());
+            errorMessage.append("\n\t\tparam: ").append(this.error.param());
         }
         if (this.error.code() != null) {
-            errorMessage.append("\ncode: ").append(this.error.code());
+            errorMessage.append("\n\t\tcode: ").append(this.error.code());
         }
 
         return errorMessage.toString();
@@ -68,7 +68,7 @@ public class ErrorDetails {
     /**
      * The type Error.
      */
-    public record Error(
+    record Error(
             String message,
             String type,
             String param,
