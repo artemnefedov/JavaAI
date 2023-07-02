@@ -43,7 +43,7 @@ jobs:
           allowUpdates: true
           artifacts: "${{ github.workspace }}/target/*.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tags: "v0.3.4"
+          tag: "v0.3.4"
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress \
