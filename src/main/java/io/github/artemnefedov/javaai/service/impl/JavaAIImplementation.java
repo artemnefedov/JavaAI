@@ -197,8 +197,4 @@ public class JavaAIImplementation implements JavaAI {
         defaultCompetitionsConfig();
         defaultChatConfig();
     }
-
-    public static JavaAI javaAiBuilder(String apiKey) {
-        return new JavaAIImplementation(apiKey);
-    }
 }

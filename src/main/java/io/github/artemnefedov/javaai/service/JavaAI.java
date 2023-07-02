@@ -27,6 +27,7 @@ package io.github.artemnefedov.javaai.service;
 import io.github.artemnefedov.javaai.dto.ChatMessage;
 import io.github.artemnefedov.javaai.dto.Chat;
 import io.github.artemnefedov.javaai.dto.Completions;
+import io.github.artemnefedov.javaai.service.impl.JavaAIImplementation;
 
 import java.util.List;
 
@@ -73,9 +74,20 @@ public interface JavaAI {
 
     /**
      * Sets your dto to work with the API
+     *
      * @param completions dto with your options.
      */
     void setCompletions(Completions completions);
+
+    /**
+     * JavaAI builder
+     *
+     * @param apiKey the api key
+     * @return the JavaAI implementation
+     */
+    static JavaAI javaAiBuilder(String apiKey) {
+        return new JavaAIImplementation(apiKey);
+    }
 
     /**
      * Sets your dto to work with the API
