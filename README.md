@@ -5,8 +5,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<div style="font-family: 'JetBrains Mono NL ExtraLight',serif">
-
 ## JavaAI is an open source library that allows you to interact with OpenAI models with just a few lines of code
 
 #### Note:
@@ -115,5 +113,3 @@ javaAI.setChat(
 ## License
 
 #### Distributed under the [MIT License](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
-
-</div>
