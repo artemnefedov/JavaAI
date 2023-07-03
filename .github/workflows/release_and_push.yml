@@ -46,10 +46,10 @@ jobs:
 #          tag: "v0.3.4"
           
     - name: Publish to the Maven Central Repository
-      run: mvn --no-transfer-progress \
-            --batch-mode \
-            deploy
+      run: mvn --no-transfer-progress deploy
+
+
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSWORD }}
