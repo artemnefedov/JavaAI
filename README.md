@@ -37,7 +37,7 @@ implementation group: 'io.github.artemnefedov', name: 'javaai', version: '0.3.4'
 ### Initialize JavaAI
 
 ```java
-JavaAI javaAI=javaAiBuilder("YOUR_API-KEY");
+JavaAI javaAI = javaAiBuilder("YOUR_API-KEY");
 ```
 
 ## Java AI example
