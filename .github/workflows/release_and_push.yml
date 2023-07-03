@@ -37,13 +37,12 @@ jobs:
     - name: build artifact
       run: mvn clean package
       
-#    - name: Create Release
-#      uses: ncipollo/release-action@v1.12.0
-#      with:
-#          allowUpdates: true
-#          artifacts: ${{ github.workspace }}/target/*.jar
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          tag: "v0.3.4"
+    - name: Create Release
+      uses: ncipollo/release-action@v1.12.0
+      with:
+          allowUpdates: true
+          artifacts: ${{ github.workspace }}/target/*.jar
+          token: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress deploy
