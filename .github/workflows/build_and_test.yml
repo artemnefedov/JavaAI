@@ -27,7 +27,7 @@ jobs:
         run: mvn --batch-mode -DskipTests package
         
       - name: Test
-        run: cd ${{ github.workspace }} && mvn --batch-mode -Dmaven.test.failure.ignore=true test
+        run: cd .. && mvn --batch-mode -Dmaven.test.failure.ignore=true test
         
       - name: Report
         uses: dorny/test-reporter@v1.6.0
