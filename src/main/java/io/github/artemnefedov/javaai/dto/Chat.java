@@ -63,8 +63,8 @@ public class Chat implements OpenAIModel {
     /**
      * Instantiates a new Chat.
      *
-     * @param model      the model
-     * @param n          the n
+     * @param model     the model
+     * @param n         the n
      * @param maxTokens the max tokens
      */
     public Chat(String model, int n, int maxTokens) {
@@ -78,6 +78,9 @@ public class Chat implements OpenAIModel {
         return ChatResponse.class;
     }
 
+    /**
+     * The type Chat response.
+     */
     public record ChatResponse(
             String id,
             String object,
@@ -87,6 +90,9 @@ public class Chat implements OpenAIModel {
             Usage usage
     ) implements ModelResponse {
 
+        /**
+         * The type Chat choice.
+         */
         public record ChatChoice(
                 int index,
                 ChatMessage message,
@@ -94,6 +100,9 @@ public class Chat implements OpenAIModel {
         ) {
         }
 
+        /**
+         * The type Usage.
+         */
         record Usage(
                 int promptTokens,
                 int completionTokens,

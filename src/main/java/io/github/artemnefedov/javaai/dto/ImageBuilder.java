@@ -52,6 +52,9 @@ public class ImageBuilder implements OpenAIModel {
         return ImageModelResponse.class;
     }
 
+    /**
+     * The type Image model response.
+     */
     public record ImageModelResponse(
             long created,
             List<ImageData> data

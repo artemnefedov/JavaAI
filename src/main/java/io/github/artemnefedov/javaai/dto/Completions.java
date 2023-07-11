@@ -69,10 +69,10 @@ public class Completions implements OpenAIModel {
      * Instantiates a new Completions.
      *
      * @param model       the model
-     * @param maxTokens  the max tokens
+     * @param maxTokens   the max tokens
      * @param temperature the temperature
      * @param n           the n
-     * @param bestOf     the best of
+     * @param bestOf      the best of
      */
     public Completions(String model, int maxTokens, float temperature, byte n, int bestOf) {
         this.model = model;
@@ -87,6 +87,9 @@ public class Completions implements OpenAIModel {
         return LanguageModelResponse.class;
     }
 
+    /**
+     * The type Language model response.
+     */
     public record LanguageModelResponse(
             String id,
             String object,
@@ -95,6 +98,9 @@ public class Completions implements OpenAIModel {
             List<Choice> choices,
             Usage usage
     ) implements ModelResponse{
+        /**
+         * The type Choice.
+         */
         record Choice(
                 String text,
                 int index,
@@ -103,6 +109,9 @@ public class Completions implements OpenAIModel {
         ) {
         }
 
+        /**
+         * The type Usage.
+         */
         record Usage(
                 int promptTokens,
                 int completionTokens,

@@ -64,6 +64,14 @@ public class JavaAIImplementation implements JavaAI {
         this.postConstruct();
     }
 
+    public JavaAIImplementation() {
+
+        var config = new Config();
+
+        this.connection = new Connection(config.apiKey());
+        this.postConstruct();
+    }
+
     @Override
     public String generateText(String prompt) {
 

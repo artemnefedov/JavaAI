@@ -89,6 +89,10 @@ public interface JavaAI {
         return new JavaAIImplementation(apiKey);
     }
 
+    static JavaAI javaAiBuilder() {
+        return new JavaAIImplementation();
+    }
+
     /**
      * Sets your dto to work with the API
      *
