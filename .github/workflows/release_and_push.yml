@@ -1,15 +1,9 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-
-name: release and push to maven central repo
+name: Release and push to Maven Central
 
 on:
   push:
     tags:
       - '*'
-
-permissions:
-  contents: write
 
 jobs:
   publish:
@@ -21,19 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Java for publishing to Maven Central Repository
+    - name: Set up Java
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adopt'
+        distribution: 'temurin'
         server-id: ossrh
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
         gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-    - name: build artifact
-      run: mvn clean package
+    - name: Build artifact
+      run: mvn clean package -DskipTests
       
     - name: Create Release
       uses: ncipollo/release-action@v1.12.0
@@ -44,7 +38,6 @@ jobs:
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress deploy
-
 
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
