@@ -89,6 +89,11 @@ public interface JavaAI {
         return new JavaAIImplementation(apiKey);
     }
 
+    /**
+     * JavaAI builder
+     *
+     * @return the JavaAI implementation
+     */
     static JavaAI javaAiBuilder() {
         return new JavaAIImplementation();
     }
