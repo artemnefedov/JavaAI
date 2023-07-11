@@ -1,1 +1,3 @@
-api-key: "${OPENAI_API_KEY}"
+api-key: "YOUR_API_KEY_FOR_TEST"
+
+test-key: test

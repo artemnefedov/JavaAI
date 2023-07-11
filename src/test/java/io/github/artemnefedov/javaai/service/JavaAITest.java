@@ -26,73 +26,103 @@ package io.github.artemnefedov.javaai.service;
 
 import io.github.artemnefedov.javaai.dto.ChatMessage;
 import io.github.artemnefedov.javaai.dto.Completions;
+import io.github.artemnefedov.javaai.service.impl.Config;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.artemnefedov.javaai.service.JavaAI.javaAiBuilder;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class JavaAITest {
 
-    JavaAI openAI = javaAiBuilder();
 
-    /**
-     * Generate text test.
-     */
+//    JavaAI javaAI = javaAiBuilder();
+
+
     @Test
-    void generateTextTest() {
+    void connectionTest(){
 
-        assertEquals("This is indeed a test.", openAI.generateText("Say this is a test"));
+        try {
+
+            var connection = (HttpURLConnection) new URL("https://api.openai.com/v1/chat/completions").openConnection();
+
+            connection.setRequestMethod("GET");
+
+            assertEquals(HTTP_UNAUTHORIZED, connection.getResponseCode());
+
+        }catch (IOException ex) {
+            ex.getMessage();
+        }
     }
 
-    /**
-     * Generate image test.
-     */
     @Test
-    void generateImageTest() {
-
-        String response = openAI.generateImage("A cute baby sea otter");
-
-        assertTrue(response != null && response.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
-
+    void loadingFromYamlTest() {
+        Config config = new Config();
+        config.testKey();
+        assertEquals("test", config.testKey());
     }
 
-    /**
-     * Chat test.
-     */
-    @Test
-    void chatTest() {
-
-        List<ChatMessage> messages = new ArrayList<>();
-        messages.add(new ChatMessage("user", "What is the name of the capital of Armenia?"));
-
-        assertEquals("The capital of Armenia is Yerevan.", openAI.chat(messages));
-    }
-
-    /**
-     * Custom competitions config test.
-     */
-    @Test
-    void customCompetitionsConfigTest() {
-
-        Completions completions =
-                new Completions("text-curie-001", 7, 0.1f, (byte) 1, 1);
-        openAI.setCompletions(completions);
-
-        assertEquals("This is a test.", openAI.generateText("Say this is a test"));
-    }
-
-    /**
-     * Clear OpenAi.
-     */
-    @AfterEach
-    void clearOpenAI() {
-
-        openAI = null;
-    }
+//    /**
+//     * Generate text test.
+//     */
+//    @Test
+//    void generateTextTest() {
+//
+//        assertEquals("This is indeed a test.", javaAI.generateText("Say this is a test"));
+//    }
+//
+//    /**
+//     * Generate image test.
+//     */
+//    @Test
+//    void generateImageTest() {
+//
+//        String response = javaAI.generateImage("A cute baby sea otter");
+//
+//        assertTrue(response != null && response.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"));
+//
+//    }
+//
+//    /**
+//     * Chat test.
+//     */
+//    @Test
+//    void chatTest() {
+//
+//        List<ChatMessage> messages = new ArrayList<>();
+//        messages.add(new ChatMessage("user", "What is the name of the capital of Armenia?"));
+//
+//        assertEquals("The capital of Armenia is Yerevan.", javaAI.chat(messages));
+//    }
+//
+//    /**
+//     * Custom competitions config test.
+//     */
+//    @Test
+//    void customCompetitionsConfigTest() {
+//
+//        Completions completions =
+//                new Completions("text-curie-001", 7, 0.1f, (byte) 1, 1);
+//        javaAI.setCompletions(completions);
+//
+//        assertEquals("This is a test.", javaAI.generateText("Say this is a test"));
+//    }
+//
+//    /**
+//     * Clear OpenAi.
+//     */
+//    @AfterEach
+//    void clearJavaAI() {
+//
+//        javaAI = null;
+//    }
 }

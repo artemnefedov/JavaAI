@@ -27,4 +27,8 @@ public class Config {
     }
 
 
+    public String testKey() {
+        return (String) params.get("test-key");
+    }
+
 }
