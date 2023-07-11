@@ -24,10 +24,10 @@ jobs:
           cache: maven
         
       - name: Build
-        run: mvn --batch-mode -DskipTests package
+        run: ./mvnw --batch-mode -DskipTests package
         
       - name: Test
-        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+        run: ./mvnw --batch-mode -Dmaven.test.failure.ignore=true test
         
       - name: ls
         run: tree 
