@@ -21,12 +21,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: maven
         
       - name: Build
         run: mvn --batch-mode -DskipTests package
         
       - name: Test
-        run: mvn test --batch-mode -Dmaven.test.failure.ignore=true -Dtest="io.github.artemnefedov.javaai.service.**"
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
         
       - name: Report
         uses: dorny/test-reporter@v1.6.0
