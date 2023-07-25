@@ -1,6 +1,4 @@
-<p>
-<img src="https://raw.githubusercontent.com/artemnefedov/JavaAI/resource/img/javaAi_logo.png" width="1900" alt="JavaAI">
-</p>
+![JavaAI logo](https://github.com/artemnefedov/JavaAI/blob/resource/img/javaAi_logo.png?raw=true)
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
