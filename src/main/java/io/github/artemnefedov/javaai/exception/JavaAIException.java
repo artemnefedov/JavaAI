@@ -22,14 +22,12 @@
  *  SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.exceptionhandling;
-
-import java.io.IOException;
+package io.github.artemnefedov.javaai.exception;
 
 /**
  * Handler for exceptions received from the JavaAI API.
  */
-public class JavaAIException extends IOException {
+public class JavaAIException extends RuntimeException {
 
     /**
      * Instantiates a new JavaAi exception.

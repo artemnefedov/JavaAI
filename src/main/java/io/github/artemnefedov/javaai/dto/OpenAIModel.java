@@ -1,7 +1,7 @@
 package io.github.artemnefedov.javaai.dto;
 
 /**
- * The interface Open ai model.
+ * The interface OpenAi model.
  */
 public interface OpenAIModel {
 

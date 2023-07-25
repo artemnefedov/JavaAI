@@ -28,9 +28,8 @@ import io.github.artemnefedov.javaai.dto.ImageBuilder;
 import io.github.artemnefedov.javaai.dto.Chat;
 import io.github.artemnefedov.javaai.dto.ChatMessage;
 import io.github.artemnefedov.javaai.dto.Completions;
-import io.github.artemnefedov.javaai.exceptionhandling.JavaAIException;
+import io.github.artemnefedov.javaai.exception.JavaAIException;
 import io.github.artemnefedov.javaai.service.JavaAI;
-import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,7 +39,6 @@ import java.util.List;
 /**
  * The main class for interacting with JavaAI implements the {@link JavaAI} interface.
  */
-@Slf4j
 public class JavaAIImplementation implements JavaAI {
 
     private URL completionsURL;
@@ -66,93 +64,56 @@ public class JavaAIImplementation implements JavaAI {
 
     public JavaAIImplementation() {
 
-        var config = new Config();
-
-        this.connection = new Connection(config.apiKey());
+        this.connection = new Connection(new Config().apiKey());
         this.postConstruct();
     }
 
     @Override
     public String generateText(String prompt) {
 
-        var response = "";
-
         this.completions.setPrompt(prompt);
 
-        try {
-            response = connection
-                    .sendPost(this.completions, completionsURL, completions.getResponseModel())
-                    .getResponse();
+        return connection
+                .sendPost(this.completions, completionsURL, completions.getResponseModel())
+                .getResponse();
 
-        } catch (JavaAIException aiException) {
-            log.error(aiException.getMessage());
-        }
-        return response;
     }
 
     @Override
     public String generateImage(String prompt) {
 
-        var response = "";
-
         this.imageBuilder.setPrompt(prompt);
 
-        try {
-            response = connection
-                    .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
-                    .getResponse();
+        return connection
+                .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
+                .getResponse();
 
-        } catch (JavaAIException aiException) {
-            log.error(aiException.getMessage());
-        }
-        return response;
     }
 
     @Override
     public String chat(List<ChatMessage> messages) {
 
-        var response = "";
-
         messages.forEach(msg -> this.chat.getMessages().add(msg));
 
-        try {
+        var chatResponse = (Chat.ChatResponse) connection
+                .sendPost(this.chat, chatURL, chat.getResponseModel());
 
-            var chatResponse = (Chat.ChatResponse) connection
-                    .sendPost(this.chat, chatURL, chat.getResponseModel());
+        this.chat.getMessages().add(chatResponse.choices().get(0).message());
 
-            this.chat.getMessages().add(chatResponse.choices().get(0).message());
-
-            response = chatResponse.getResponse();
-
-        } catch (JavaAIException aiException) {
-
-            log.error(aiException.getMessage());
-        }
-        return response;
+        return chatResponse.getResponse();
     }
 
     @Override
     public String chat(String userMessage) {
 
-
-        var response = "";
-
         this.chat.getMessages().add(new ChatMessage("user", userMessage));
 
-        try {
+        var chatResponse = (Chat.ChatResponse) connection
+                .sendPost(this.chat, chatURL, chat.getResponseModel());
 
-            var chatResponse = (Chat.ChatResponse) connection
-                    .sendPost(this.chat, chatURL, chat.getResponseModel());
+        this.chat.getMessages().add(chatResponse.choices().get(0).message());
 
-            this.chat.getMessages().add(chatResponse.choices().get(0).message());
-
-            response = chatResponse.getResponse();
-
-        } catch (JavaAIException aiException) {
-
-            log.error(aiException.getMessage());
-        }
-        return response;
+        return chatResponse.getResponse();
     }
 
     @Override
@@ -172,9 +133,14 @@ public class JavaAIImplementation implements JavaAI {
 
         this.chat = Chat.builder()
                 .messages(new ArrayList<>())
-                .model("gpt-3.5-turbo")
-                .maxTokens(2000)
-                .n(1)
+                .model(Config.chat().model())
+                .maxTokens(Config.chat().maxTokens())
+                .n(Config.chat().n())
+                .temperature(Config.chat().temperature())
+                .topP(Config.chat().topP())
+                .stream(Config.chat().stream())
+                .stop(Config.chat().stop())
+                .user(Config.chat().user())
                 .build();
     }
 
@@ -198,7 +164,7 @@ public class JavaAIImplementation implements JavaAI {
             this.chatURL = new URL(baseURL + "/v1/chat/completions");
         } catch (MalformedURLException exception) {
 
-            log.error(exception.getMessage());
+            throw new JavaAIException(exception.getMessage());
         }
 
         this.imageBuilder = new ImageBuilder();
