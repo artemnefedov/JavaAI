@@ -62,6 +62,9 @@ public class JavaAIImplementation implements JavaAI {
         this.postConstruct();
     }
 
+    /**
+     * Instantiates a new Java ai implementation.
+     */
     public JavaAIImplementation() {
 
         this.connection = new Connection(new Config().apiKey());
