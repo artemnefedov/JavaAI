@@ -74,8 +74,8 @@ public class Config {
 
 
 
-//    public String testKey() {
-//        return (String) params.get("test-key");
-//    }
+    public String testKey() {
+        return (String) params.get("openapi").get("test-key");
+    }
 
 }

@@ -1,3 +1,2 @@
-api-key: "YOUR_API_KEY_FOR_TEST"
-
-test-key: test
+openapi:
+  test-key: test

@@ -36,10 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.artemnefedov.javaai.service.JavaAI.javaAiBuilder;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class JavaAITest {
@@ -47,22 +44,6 @@ class JavaAITest {
 
 //    JavaAI javaAI = javaAiBuilder();
 
-
-    @Test
-    void connectionTest(){
-
-        try {
-
-            var connection = (HttpURLConnection) new URL("https://api.openai.com/v1/chat/completions").openConnection();
-
-            connection.setRequestMethod("GET");
-
-            assertEquals(HTTP_UNAUTHORIZED, connection.getResponseCode());
-
-        }catch (IOException ex) {
-            ex.getMessage();
-        }
-    }
 
     @Test
     void loadingFromYamlTest() {
