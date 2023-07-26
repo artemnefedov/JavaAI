@@ -2,16 +2,17 @@ name: Release and push to Maven Central
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '*'
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-
   publish:
-
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
@@ -19,30 +20,31 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Java
+    - name: Set up Java for publishing to Maven Central Repository
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'adopt'
         server-id: ossrh
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
         gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-    - name: Build artifact
-      run: mvn clean package -DskipTests
+    - name: build artifact
+      run: mvn clean package
       
-    - name: Create release
-      uses: ncipollo/release-action@v1.12.0
-      with:
-        allowUpdates: true
-        artifacts: "${{ github.workspace }}/target/*.jar"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: 0.3.5
+#    - name: Create Release
+#      uses: ncipollo/release-action@v1.12.0
+#      with:
+#          allowUpdates: true
+#          artifacts: ${{ github.workspace }}/target/*.jar
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          tag: "v0.3.4"
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress deploy
+
 
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
