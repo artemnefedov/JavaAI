@@ -62,7 +62,7 @@ jobs:
       run: mvn clean package -DskipTests
           
     - name: Publish to the Maven Central Repository
-      run: mvn --no-transfer-progress deploy
+      run: mvn --no-transfer-progress clean deploy -Pdeploy
 
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
