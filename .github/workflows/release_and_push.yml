@@ -35,6 +35,7 @@ jobs:
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress deploy
+#       run: mvn --no-transfer-progress deploy
 
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
