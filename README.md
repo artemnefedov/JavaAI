@@ -32,7 +32,7 @@
 
 ### Initialize JavaAI
 
-> You can pass your API-Key in java code
+> You can pass your _**API-Key**_ in java code
 >```java
 >JavaAI javaAI = javaAiBuilder("YOUR_API-KEY");
 >```
