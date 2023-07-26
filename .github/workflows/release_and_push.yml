@@ -60,13 +60,6 @@ jobs:
 
     - name: Build artifact
       run: mvn clean package -DskipTests
-      
-    - name: Create Release
-      uses: ncipollo/release-action@v1.12.0
-      with:
-          allowUpdates: true
-          artifacts: ${{ github.workspace }}/target/*.jar
-          token: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Publish to the Maven Central Repository
       run: mvn --no-transfer-progress deploy
