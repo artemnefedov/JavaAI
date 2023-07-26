@@ -32,7 +32,7 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
     - name: build artifact
-      run: mvn clean package
+      run: ./mvnw -B package --file pom.xml
       
 #    - name: Create Release
 #      uses: ncipollo/release-action@v1.12.0
@@ -43,7 +43,7 @@ jobs:
 #          tag: "v0.3.4"
           
     - name: Publish to the Maven Central Repository
-      run: mvn --no-transfer-progress deploy
+      run: ./mvnw deploy
 
 
       env:
