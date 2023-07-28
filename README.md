@@ -101,7 +101,7 @@ Example for Chat:
 >            .build()
 >        );
 >```
-> _or in **javaai.yaml**_
+> _or in **javaai.yaml**_(if you use javaai.yaml to pass api-key)
 > ```yaml
 > chat:
 >   model: gpt-3.5-turbo
