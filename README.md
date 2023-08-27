@@ -1,7 +1,13 @@
 ![JavaAI logo](https://github.com/artemnefedov/JavaAI/blob/resource/img/javaAi_logo.png?raw=true)
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.artemnefedov%22%20AND%20a:%22javaai%22)
+
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/artemnefedov/JavaAI?logo=GitHub)](https://github.com/artemnefedov/JavaAI/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
+
+
+
+
 ## JavaAI is an open source library that allows you to interact with OpenAI models with just a few lines of code
 
 #### Note:
