@@ -1,126 +1,93 @@
 ![JavaAI logo](https://github.com/artemnefedov/JavaAI/blob/resource/img/javaAi_logo.png?raw=true)
 
-
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/artemnefedov/JavaAI?logo=GitHub)](https://github.com/artemnefedov/JavaAI/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.artemnefedov/javaai.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/io.github.artemnefedov/javaai/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1194ce221f4f46ed950d4b05e6fd248c)](https://app.codacy.com/gh/artemnefedov/JavaAI/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-![GitHub repo size](https://img.shields.io/github/repo-size/artemnefedov/JavaAI)
 
 
 
 
-## JavaAI is an open source library that allows you to interact with OpenAI models with just a few lines of code
+## Is a lightweight and easy to use library that allows you to interact with OpenAI models with just a few lines of code
 
-#### Note:
-
-> I wrote this library for myself since I couldn't find anything more suitable for my project, so I decided to share it
-> with the community. I hope this library will help you.<br>
-> Any help is welcome. I am always glad to hear new ideas and criticism.
-
-## How to use it?
+## How to use?
 
 ### Integration
 
->#### _Maven_
->
->```xml
-><dependency>
->    <groupId>io.github.artemnefedov</groupId>
->    <artifactId>javaai</artifactId>
->    <version>0.3.5</version>
-></dependency>
->```
-> ___
->#### _Gradle_
->
->```groovy
->implementation 'io.github.artemnefedov:javaai:0.3.5'
->```
+#### _Maven_
+
+```xml
+<dependency>
+    <groupId>io.github.artemnefedov</groupId>
+    <artifactId>javaai</artifactId>
+    <version>0.4.0</version>
+</dependency>
+```
+ ___
+#### _Gradle_
+
+```groovy
+implementation 'io.github.artemnefedov:javaai:0.4.0'
+```
 
 ### Initialize JavaAI
 
-> You can pass your _**API-Key**_ in java code
->```java
->JavaAI javaAI = javaAiBuilder("YOUR_API-KEY");
->```
-> ___
->
-> Or paste it into the api-key field in the _**javaai.yaml**_, everyone loves yaml
->```yaml
->openai:
->   api-key: "YOUR_API-KEY"
->```
->```java
->JavaAI javaAI = javaAiBuilder();
->```
+```java
+   JavaAI javaAI = javaAiBuilder("YOUR_API-KEY");
+```
 
 ## Java AI example
 
 ### ChatGPT
 
->You have 2 options to use JavaAI to work with ChatGPT.
+You have 2 options to use JavaAI to work with ChatGPT.
 You can make a first request using List<ChatMessage> to set the context and get a response, and after that use a string.
 <br>Both options retain the message history.
 <br>The "**assistant**" role is used by default for answers, be careful.
->```java
->var messages = List.of(
->        new ChatMessage("user","Hello!"),
->        new ChatMessage("assistant","Hello! How can I assist you today?"));
->
->String chatResponse = javaAI.chat(messages);
->```
->#### _OR_
->```java
->javaAI.chat("What's 2 2?"); 
->javaAI.chat("What did I ask in the last question?");
->```
-> > **user:** What's 2 2?<br>
-> > **assistant:** 2 + 2 equals 4<br>
-> > **user**: What did I ask in the last question?<br>
-> > **assistant**: In your last question, you asked "What's 2 2?"<br>
+```java
+var messages = List.of(
+        new ChatMessage("user","Hello!"),
+        new ChatMessage("assistant","Hello! How can I assist you today?"));
+
+String chatResponse = javaAI.chat(messages);
+```
+#### _OR_
+```java
+javaAI.chat("What's 2 2?"); 
+javaAI.chat("What did I ask in the last question?");
+```
+> ### Example of communication
+> **user:** What's 2 2?<br>
+> **assistant:** 2 + 2 equals 4<br>
+> **user**: What did I ask in the last question?<br>
+> **assistant**: In your last question, you asked "What's 2 2?"<br>
 ---
 ### DALL·E 2
->Image generation, the model will return a URL to the result, as a List of String
->```java
->String imgUrl = javaAI.generateImage("cat sitting next to a cup of coffee");
->```
-> ![cat_image](https://github.com/artemnefedov/JavaAI/blob/resource/img/cat_%20of_coffee.png?raw=true)
+Image generation, the model will return a URL to the result, as a List of String
+```java
+String imgUrl = javaAI.generateImage("cat sitting next to a cup of coffee");
+```
+ ![cat_image](https://github.com/artemnefedov/JavaAI/blob/resource/img/cat_%20of_coffee.png?raw=true)
 ---
 ### Completions
->Text generation, the model will return the response as a String
->```java
->String response = javaAI.generateText("Say this is a test");
->```
+Text generation, the model will return the response as a String
+```java
+String response = javaAI.generateText("Say this is a test");
+```
 ---
-**Notice:**
 
-> You can always set your parameters for the models
+### You can always set your parameters for the models
 
 Example for Chat:
-> _In java code_
->```java
->javaAI.setChat(
->        Chat.builder()
->            .messages(new ArrayList<>())
->            .model("gpt-3.5-turbo")
->            .maxTokens(2000)
->            .n(1)
->            .build()
->        );
->```
-> _or in **javaai.yaml**_(if you use javaai.yaml to pass api-key)
-> ```yaml
-> chat:
->   model: gpt-3.5-turbo
->   temperature: 0.9
->   top_p: 1
->   n: 1
->   stream: false
->   stop: \n
->   max_tokens: 2000
->   user:
-> ```
+```java
+javaAI.setChat(
+        Chat.builder()
+            .messages(new ArrayList<>())
+            .model("gpt-3.5-turbo")
+            .maxTokens(2000)
+            .n(1)
+            .build()
+        );
+```
 ---
 
 ## Models that JavaAI works with:

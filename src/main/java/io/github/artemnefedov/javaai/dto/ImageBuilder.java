@@ -25,27 +25,29 @@
 package io.github.artemnefedov.javaai.dto;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 /**
  * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
  */
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class ImageBuilder implements OpenAIModel {
 
     private String prompt;
-    private final int n = 1;
-    private final String size = "1024x1024";
+    private final int n;
+    private final String size;
     @SerializedName("response_format")
-    private final String responseFormat = "url";
+    private final String responseFormat;
+
+    public ImageBuilder() {
+        this.n = 1;
+        this.size = "1024x1024";
+        this.responseFormat = "url";
+    }
 
     @Override
     public Class<? extends ModelResponse> getResponseModel() {
@@ -57,23 +59,17 @@ public class ImageBuilder implements OpenAIModel {
      */
     public record ImageModelResponse(
             long created,
-            List<ImageData> data
-
-    ) implements ModelResponse {
+            List<ImageData> data) implements ModelResponse {
 
         @Override
         public String getResponse() {
-
             return this.data.get(0).url();
         }
 
         /**
          * The type Image data.
          */
-        public record ImageData(
-                String url,
-                String b64Json
-        ) {
+        public record ImageData(String url, String b64Json) {
         }
     }
 }

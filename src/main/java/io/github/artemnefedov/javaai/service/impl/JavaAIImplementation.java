@@ -41,12 +41,12 @@ import java.util.List;
  */
 public class JavaAIImplementation implements JavaAI {
 
-    private URL completionsURL;
-    private URL imgBuilderURL;
-    private URL chatURL;
+    private final URL completionsURL;
+    private final URL imgBuilderURL;
+    private final URL chatURL;
 
     private Completions completions;
-    private ImageBuilder imageBuilder;
+    private final ImageBuilder imageBuilder = new ImageBuilder();
     private Chat chat;
 
     private final Connection connection;
@@ -54,39 +54,33 @@ public class JavaAIImplementation implements JavaAI {
     /**
      * Instantiates a new OpenAi implementation.
      *
-     * @param API_KEY the api key
+     * @param apiKey the api key
      */
-    public JavaAIImplementation(String API_KEY) {
-
-        this.connection = new Connection(API_KEY);
-        this.postConstruct();
-    }
-
-    /**
-     * Instantiates a new Java ai implementation.
-     */
-    public JavaAIImplementation() {
-
-        this.connection = new Connection(new Config().apiKey());
-        this.postConstruct();
+    public JavaAIImplementation(String apiKey) {
+        this.connection = new Connection(apiKey);
+        try {
+            var baseURL = new URL("https://api.openai.com");
+            this.completionsURL = new URL(baseURL + "/v1/completions");
+            this.imgBuilderURL = new URL(baseURL + "/v1/images/generations");
+            this.chatURL = new URL(baseURL + "/v1/chat/completions");
+        } catch (MalformedURLException exception) {
+            throw new JavaAIException(exception.getMessage());
+        }
+        defaultCompetitionsConfig();
+        defaultChatConfig();
     }
 
     @Override
     public String generateText(String prompt) {
-
         this.completions.setPrompt(prompt);
-
         return connection
                 .sendPost(this.completions, completionsURL, completions.getResponseModel())
                 .getResponse();
-
     }
 
     @Override
     public String generateImage(String prompt) {
-
         this.imageBuilder.setPrompt(prompt);
-
         return connection
                 .sendPost(this.imageBuilder, imgBuilderURL, imageBuilder.getResponseModel())
                 .getResponse();
@@ -95,33 +89,24 @@ public class JavaAIImplementation implements JavaAI {
 
     @Override
     public String chat(List<ChatMessage> messages) {
-
         messages.forEach(msg -> this.chat.getMessages().add(msg));
-
         var chatResponse = (Chat.ChatResponse) connection
                 .sendPost(this.chat, chatURL, chat.getResponseModel());
-
         this.chat.getMessages().add(chatResponse.choices().get(0).message());
-
         return chatResponse.getResponse();
     }
 
     @Override
     public String chat(String userMessage) {
-
         this.chat.getMessages().add(new ChatMessage("user", userMessage));
-
         var chatResponse = (Chat.ChatResponse) connection
                 .sendPost(this.chat, chatURL, chat.getResponseModel());
-
         this.chat.getMessages().add(chatResponse.choices().get(0).message());
-
         return chatResponse.getResponse();
     }
 
     @Override
     public void defaultCompetitionsConfig() {
-
         this.completions = Completions.builder()
                 .model("text-davinci-003")
                 .maxTokens(2000)
@@ -133,17 +118,11 @@ public class JavaAIImplementation implements JavaAI {
 
     @Override
     public void defaultChatConfig() {
-
         this.chat = Chat.builder()
                 .messages(new ArrayList<>())
-                .model(Config.chat().model())
-                .maxTokens(Config.chat().maxTokens())
-                .n(Config.chat().n())
-                .temperature(Config.chat().temperature())
-                .topP(Config.chat().topP())
-                .stream(Config.chat().stream())
-                .stop(Config.chat().stop())
-                .user(Config.chat().user())
+                .model("gpt-3.5-turbo")
+                .maxTokens(2000)
+                .n(1)
                 .build();
     }
 
@@ -155,23 +134,5 @@ public class JavaAIImplementation implements JavaAI {
     @Override
     public void setChat(Chat chat) {
         this.chat = chat;
-    }
-
-    private void postConstruct() {
-
-        try {
-
-            var baseURL = new URL("https://api.openai.com");
-            this.completionsURL = new URL(baseURL + "/v1/completions");
-            this.imgBuilderURL = new URL(baseURL + "/v1/images/generations");
-            this.chatURL = new URL(baseURL + "/v1/chat/completions");
-        } catch (MalformedURLException exception) {
-
-            throw new JavaAIException(exception.getMessage());
-        }
-
-        this.imageBuilder = new ImageBuilder();
-        defaultCompetitionsConfig();
-        defaultChatConfig();
     }
 }

@@ -93,21 +93,13 @@ public class Chat implements OpenAIModel {
         /**
          * The type Chat choice.
          */
-        public record ChatChoice(
-                int index,
-                ChatMessage message,
-                String finishReason
-        ) {
+        public record ChatChoice(int index, ChatMessage message, String finishReason) {
         }
 
         /**
          * The type Usage.
          */
-        record Usage(
-                int promptTokens,
-                int completionTokens,
-                int totalTokens
-        ) {
+        record Usage(int promptTokens, int completionTokens, int totalTokens) {
         }
 
         /**
@@ -116,7 +108,6 @@ public class Chat implements OpenAIModel {
          * @return the response
          */
         public String getResponse() {
-
             return this.choices().get(0).message().getContent().trim();
         }
     }

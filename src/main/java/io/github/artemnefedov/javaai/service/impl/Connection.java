@@ -25,28 +25,18 @@
 package io.github.artemnefedov.javaai.service.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import io.github.artemnefedov.javaai.dto.OpenAIModel;
 import io.github.artemnefedov.javaai.dto.ErrorDetails;
 import io.github.artemnefedov.javaai.exception.JavaAIException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * The class responsible for communicating with the JavaAI API.
@@ -60,10 +50,10 @@ public class Connection {
     /**
      * Instantiates a new Connection.
      *
-     * @param API_KEY the api key
+     * @param apiKey the api key
      */
-    Connection(String API_KEY) {
-        this.API_KEY = API_KEY;
+    Connection(String apiKey) {
+        this.API_KEY = apiKey;
         this.gson = new Gson();
     }
 
@@ -77,42 +67,28 @@ public class Connection {
      * @return the t
      */
     <T> T sendPost(OpenAIModel openAiModel, URL url, Class<T> response) {
-
         Reader streamReader;
-
         try {
-
             var connection = (HttpURLConnection) url.openConnection();
-
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
             connection.setDoOutput(true);
-
             try (var outputStream = connection.getOutputStream()) {
                 outputStream.write(gson
                         .toJson(openAiModel)
                         .getBytes(StandardCharsets.UTF_8));
             }
-
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-
                 var httpResponse = "Unexpected HTTP response: " + connection.getResponseCode() + ' ' + connection.getResponseMessage() + "\n";
-
                 streamReader = new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8);
-
                 var errors = gson.fromJson(streamReader, ErrorDetails.class);
-
                 throw new JavaAIException(httpResponse + errors.getErrorDetails());
             }
-
             streamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
-
         } catch (IOException | JsonSyntaxException exception) {
-
             throw new JavaAIException(exception.getMessage());
         }
-
         return gson.fromJson(streamReader, response);
     }
 }

@@ -68,11 +68,6 @@ public class ErrorDetails {
     /**
      * The type Error.
      */
-    record Error(
-            String message,
-            String type,
-            String param,
-            String code
-    ) {
+    record Error(String message, String type, String param, String code) {
     }
 }

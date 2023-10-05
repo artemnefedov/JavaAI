@@ -90,15 +90,6 @@ public interface JavaAI {
     }
 
     /**
-     * JavaAI builder
-     *
-     * @return the JavaAI implementation
-     */
-    static JavaAI javaAiBuilder() {
-        return new JavaAIImplementation();
-    }
-
-    /**
      * Sets your dto to work with the API
      *
      * @param chat dto with your options.

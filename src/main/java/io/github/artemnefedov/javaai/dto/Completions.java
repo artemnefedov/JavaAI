@@ -101,22 +101,13 @@ public class Completions implements OpenAIModel {
         /**
          * The type Choice.
          */
-        record Choice(
-                String text,
-                int index,
-                Object logprobs,
-                String finishReason
-        ) {
+        record Choice(String text, int index, Object logprobs, String finishReason) {
         }
 
         /**
          * The type Usage.
          */
-        record Usage(
-                int promptTokens,
-                int completionTokens,
-                int totalTokens
-        ) {
+        record Usage(int promptTokens, int completionTokens, int totalTokens) {
         }
 
         /**
