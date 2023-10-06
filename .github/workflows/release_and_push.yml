@@ -34,12 +34,9 @@ jobs:
 
     # - name: Build artifact
     #   run: mvn -B package --file pom.xml -DskipTests
-
-    - name: ls gpg
-      run: gpg --list-secret-keys
       
     - name: Publish to the Maven Central Repository
-      run: mvn --no-transfer-progress deploy
+      run: mvn --no-transfer-progress deploy -DskipTests
 
 
       env:
