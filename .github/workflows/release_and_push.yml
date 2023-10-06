@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -30,10 +32,10 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
     - name: Build artifact
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml -DskipTests
           
     - name: Publish to the Maven Central Repository
-      run: mvn deploy
+      run: mvn --no-transfer-progress deploy
 
 
       env:
