@@ -43,6 +43,9 @@ public class ImageBuilder implements OpenAIModel {
     @SerializedName("response_format")
     private final String responseFormat;
 
+    /**
+    * default constructor
+    */
     public ImageBuilder() {
         this.n = 1;
         this.size = "1024x1024";
