@@ -223,9 +223,7 @@ var customChatConfig = new ChatConfig(
         UUID.randomUUID().toString()
 );
 
-javaAi.
-
-setChatConfig(customChatConfig)
+javaAi.setChatConfig(customChatConfig);
 ```
 
 ---
