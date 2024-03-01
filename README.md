@@ -6,97 +6,239 @@
 
 
 
+<details> <summary>Table of Contents</summary>
 
-## Is a lightweight and easy to use library that allows you to interact with OpenAI models with just a few lines of code
+- [About](#about)
+- [Usage](#usage)
+    - [Prerequisites](#prerequisites)
+    - [Integration](#integration)
+        - [Maven](#maven)
+        - [Gradle](#gradle)
+    - [Initialize JavaAI](#initialize-javaai)
+        - [Passing the API key directly to the constructor](#passing-the-api-key-directly-to-the-constructor)
+        - [Using environment variable](#using-environment-variable)
+    - [Example](#example)
+        - [ChatGPT](#chatgpt)
+        - [DALL-E](#dall-e)
+        - [TTS](#tts)
+    - [Configuration](#configuration)
+- [Features](#features)
+- [License](#license)
 
-## How to use?
+</details>
+
+## About
+
+> JavaAi is a lightweight and easy-to-use library for the JVM. It allows you to interact with OpenAI models with just a
+> couple of lines.
+---
+
+## Usage
+
+### Prerequisites
+
+- Java 21
+- Maven or Gradle
+- OpenAI API key
+- Internet connection
 
 ### Integration
 
-#### _Maven_
+#### Maven
 
 ```xml
+
 <dependency>
     <groupId>io.github.artemnefedov</groupId>
     <artifactId>javaai</artifactId>
     <version>0.4.0</version>
 </dependency>
 ```
- ___
-#### _Gradle_
+
+#### Gradle
 
 ```groovy
 implementation 'io.github.artemnefedov:javaai:0.4.0'
 ```
 
-### Initialize JavaAI
+---
+
+## Initialize JavaAI
+
+> #### You can initialize JavaAI in two ways: by directly passing the API key to the constructor or by adding environment variables with the key to your system, naming it OPENAI_API_KEY as recommended by [OpenAi](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety#h_a1ab3ba7b2)
+
+### Passing the API key directly to the constructor
 
 ```java
-   JavaAI javaAI = javaAiBuilder("YOUR_API-KEY");
+import io.github.artemnefedov.javaai.service.JavaAI;
+
+var javaAi = JavaAI.javaAiBuilder("YOUR_API_KEY");
 ```
 
-## Java AI example
+### Using environment variable
+
+```java
+import io.github.artemnefedov.javaai.service.JavaAI;
+
+var javaAI = JavaAI.javaAiBuilder();
+```
+
+---
+
+## Example
 
 ### ChatGPT
 
-You have 2 options to use JavaAI to work with ChatGPT.
-You can make a first request using List<ChatMessage> to set the context and get a response, and after that use a string.
-<br>Both options retain the message history.
-<br>The "**assistant**" role is used by default for answers, be careful.
-```java
-var messages = List.of(
-        new ChatMessage("user","Hello!"),
-        new ChatMessage("assistant","Hello! How can I assist you today?"));
-
-String chatResponse = javaAI.chat(messages);
-```
-#### _OR_
-```java
-javaAI.chat("What's 2 2?"); 
-javaAI.chat("What did I ask in the last question?");
-```
-> ### Example of communication
-> **user:** What's 2 2?<br>
-> **assistant:** 2 + 2 equals 4<br>
-> **user**: What did I ask in the last question?<br>
-> **assistant**: In your last question, you asked "What's 2 2?"<br>
----
-### DALL·E 2
-Image generation, the model will return a URL to the result, as a List of String
-```java
-String imgUrl = javaAI.generateImage("cat sitting next to a cup of coffee");
-```
- ![cat_image](https://github.com/artemnefedov/JavaAI/blob/resource/img/cat_%20of_coffee.png?raw=true)
----
-### Completions
-Text generation, the model will return the response as a String
-```java
-String response = javaAI.generateText("Say this is a test");
-```
+> You can use two ways to interact with ChatGPT:
+>1. Pass the user's message, as a string, to the `chat()` method.
+>```java
+> javaAi.chat("YOUR_QUESTION");
+>```
+>
+>2. Pass a saved conversation to the method as a `List<ChatMessage>`.
+>```java
+> var messages = List.of(
+>        new ChatMessage("user", "what is the meaning of life?"),
+>        new ChatMessage("AI", "The meaning of life is to be happy."),
+>        new ChatMessage("user", "are you sure?")
+>);
+>
+>javaAI.chat(messages);
+> ```
+>
+> Depending on the value of `n` you [set](#configuration), you can use either the `chat()` method, which returns
+> a `String` response from the api, or the `chatWithChoices()` method, which returns multiple responses from the API
+> as `List<String>`, depending on the value of `n` you set.
+>
 ---
 
-### You can always set your parameters for the models
+### DALL-E
 
-Example for Chat:
+> You can use the `generateImage()` method to generate an image from a text prompt. The model will return a URL to the
+> result, as a List of String.
+> ```java
+> javaAI.generateImage("Computes science cat, photo on fujifilm x100v, 2024");
+> ```
+> <details><summary>Response</summary>
+>
+> ![CS cat](https://github.com/artemnefedov/JavaAI/blob/resource/img/cs-cat.jpg?raw=true)
+></details>
+
+
+---
+
+### TTS
+
+> To translate text to speech, you must pass to the `textToSpeech()` method a `string` containing the text you want to
+> voice and a `string` containing the location where the audio file will be saved.
+> ```java
+> javaAI.textToSpeech("Hi, my name is Atryom, and I made this piece of... code.", "path/to/save/audio.mp3");
+>```
+> <details><summary>Response</summary>
+>
+> </details>
+
+
+---
+
+## Configuration
+
+> You can specify different settings for each model, via the `setChatConfig()`, `setDalleConfig()`, and `setTtsConfig()`
+> methods. Accepting records `ChatConfig`, `DalleConfig` and `TtsConfig` respectively.
+
+<details><summary>Config records view</summary>
+
+---
+`ChatConfig.java`
+
 ```java
-javaAI.setChat(
-        Chat.builder()
-            .messages(new ArrayList<>())
-            .model("gpt-3.5-turbo")
-            .maxTokens(2000)
-            .n(1)
-            .build()
-        );
+public record ChatConfig(
+        Model model,
+        float temperature,
+        int topP,
+        int n,
+        boolean stream,
+        String stop,
+        int maxTokens,
+        float presencePenalty,
+        float frequencyPenalty,
+        Map<Integer, Integer> logitBias,
+        String user) {
+}
 ```
----
 
-## Models that JavaAI works with:
-
-1. [x] [Completions](https://platform.openai.com/docs/api-reference/completions)
-2. [x] [Chat-GPT](https://platform.openai.com/docs/api-reference/chat)
-3. [x] [Create image](https://platform.openai.com/docs/api-reference/images/create)
+Parameters in [OpenAI API docs](https://platform.openai.com/docs/api-reference/chat/create)
 
 ---
+`DalleConfig.java`
+
+```java
+public record DalleConfig(
+        DalleModel model,
+        int n,
+        String quality,
+        ResponseFormat responseFormat,
+        Size size,
+        Style style,
+        String user) {
+}
+```
+
+Parameters in [OpenAI API docs](https://platform.openai.com/docs/api-reference/images)
+
+---
+`TtsConfig.java`
+
+```java
+public record TtsConfig(
+        TtsModel model,
+        Voice voice,
+        VoiceResponseFormat responseFormat,
+        float speed
+) {
+}
+```
+
+Parameters in [OpenAI API docs](https://platform.openai.com/docs/api-reference/audio/createSpeech)
+
+---
+</details>
+
+### Example for Chat:
+
+```java
+import io.github.artemnefedov.javaai.model.chat.ChatConfig;
+
+var customChatConfig = new ChatConfig(
+        ChatConfig.Model.GPT_3_5_TURBO,
+        1F,
+        1,
+        1,
+        false,
+        "\n",
+        2000,
+        0F,
+        0F,
+        new HashMap<>(),
+        UUID.randomUUID().toString()
+);
+
+javaAi.
+
+setChatConfig(customChatConfig)
+```
+
+---
+
+## Features
+
+1. [x] [GPT](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo)
+2. [x] [DALL·E](https://platform.openai.com/docs/models/dall-e)
+3. [x] [TTS](https://platform.openai.com/docs/models/tts)
+4. [ ] [Whisper](https://platform.openai.com/docs/models/whisper)
+
+---
+
 ## License
 
 #### Distributed under the [MIT License](./LICENSE)
