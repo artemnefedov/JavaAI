@@ -25,10 +25,10 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
           server-id: ossrh
-          server-username: ${{ secrets.OSSRH_USERNAME }}
-          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_SECRET_KEY_PASSWORD }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Build artifact
         run: ./mvnw -B package --file pom.xml -DskipTests
@@ -37,7 +37,7 @@ jobs:
         run: ./mvnw --no-transfer-progress deploy -DskipTests
 
 
-#        env:
-#          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-#          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-#          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSWORD }}
+       env:
+         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+         MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSWORD }}
