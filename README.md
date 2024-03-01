@@ -30,7 +30,8 @@
 
 ## About
 
-> JavaAi is an easy-to-use unofficial library for interacting with OpenAI models for the JVM.
+ JavaAi is an easy-to-use and community-maintained library for interacting with OpenAI models on the JVM
+
 ---
 
 ## Usage
@@ -65,7 +66,7 @@ implementation 'io.github.artemnefedov:javaai:0.4.0'
 
 ## Initialize JavaAI
 
-> #### You can initialize JavaAI in two ways: by directly passing the API key to the constructor or by adding environment variables with the key to your system, naming it OPENAI_API_KEY as recommended by [OpenAi](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety#h_a1ab3ba7b2)
+>  You can initialize JavaAI in two ways: by directly passing the API key to the constructor or by adding environment variables with the key to your system, naming it **OPENAI_API_KEY** as recommended by [OpenAi](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety#h_a1ab3ba7b2)
 
 ### Passing the API key directly to the constructor
 
