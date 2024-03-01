@@ -136,6 +136,7 @@ var javaAI = JavaAI.javaAiBuilder();
 >```
 > <details><summary>Response</summary>
 >
+> https://github.com/artemnefedov/JavaAI/assets/74130706/82d315be-def0-4946-b560-ab0772f64051
 > </details>
 
 
