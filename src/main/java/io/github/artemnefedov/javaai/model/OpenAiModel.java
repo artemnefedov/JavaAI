@@ -22,19 +22,41 @@
  * SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.exception;
+package io.github.artemnefedov.javaai.model;
+
+import org.json.JSONObject;
+
+import java.net.URL;
 
 /**
- * Handler for exceptions received from the JavaAI API.
+ * The interface OpenAi model.
  */
-public class JavaAIException extends RuntimeException {
+public interface OpenAiModel {
+
+
+//    /**
+//     * Gets a response model.
+//     *
+//     * @return the response model
+//     */
+//    Class<? extends ModelResponse> getResponseModel();
+
 
     /**
-     * Instantiates a new JavaAi exception.
+     * Sets a config for the model.
      *
-     * @param message the message of the exception
+     * @param config the config
      */
-    public JavaAIException(String message) {
-        super(message);
-    }
+    void setConfig(Config config);
+
+    /**
+     * Gets a json.
+     *
+     * @return the json
+     */
+    JSONObject getJson();
+
+    String getResponse(JSONObject json);
+
+    URL getURL();
 }

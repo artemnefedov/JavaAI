@@ -22,19 +22,17 @@
  * SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.exception;
+package io.github.artemnefedov.javaai.model;
 
 /**
- * Handler for exceptions received from the JavaAI API.
+ * The interface Model response.
  */
-public class JavaAIException extends RuntimeException {
+public interface ModelResponse {
 
     /**
-     * Instantiates a new JavaAi exception.
+     * Gets response.
      *
-     * @param message the message of the exception
+     * @return the response
      */
-    public JavaAIException(String message) {
-        super(message);
-    }
+    String getResponse();
 }

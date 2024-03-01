@@ -22,19 +22,16 @@
  * SOFTWARE.
  */
 
-package io.github.artemnefedov.javaai.exception;
+package io.github.artemnefedov.javaai.model.chat;
+
+import java.util.Map;
 
 /**
- * Handler for exceptions received from the JavaAI API.
+ * Helper class for {@link Chat}
  */
-public class JavaAIException extends RuntimeException {
+public record ChatMessage(String role, String content) {
 
-    /**
-     * Instantiates a new JavaAi exception.
-     *
-     * @param message the message of the exception
-     */
-    public JavaAIException(String message) {
-        super(message);
+    public Map<String, String> getMap() {
+        return Map.of("role", this.role(), "content", this.content());
     }
 }
