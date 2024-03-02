@@ -9,7 +9,9 @@
 
 <details> <summary>Table of Contents</summary>
 
-- [About](#about)
+<!--[About](#about)-->
+    
+- <a href="README.md#about"> About</a>
 - [Usage](#usage)
     - [Prerequisites](#prerequisites)
     - [Integration](#integration)
