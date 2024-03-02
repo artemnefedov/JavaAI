@@ -71,16 +71,12 @@ implementation 'io.github.artemnefedov:javaai:0.4.1'
 ### Passing the API key directly to the constructor
 
 ```java
-import io.github.artemnefedov.javaai.service.JavaAI;
-
 var javaAi = JavaAI.javaAiBuilder("YOUR_API_KEY");
 ```
 
 ### Using environment variable
 
 ```java
-import io.github.artemnefedov.javaai.service.JavaAI;
-
 var javaAI = JavaAI.javaAiBuilder();
 ```
 
