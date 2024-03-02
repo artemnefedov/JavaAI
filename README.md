@@ -12,21 +12,21 @@
 <!--[About](#about)-->
     
 - <a href="README.md#about"> About</a>
-- [Usage](#usage)
-    - [Prerequisites](#prerequisites)
-    - [Integration](#integration)
-        - [Maven](#maven)
-        - [Gradle](#gradle)
-    - [Initialize JavaAI](#initialize-javaai)
-        - [Passing the API key directly to the constructor](#passing-the-api-key-directly-to-the-constructor)
-        - [Using environment variable](#using-environment-variable)
-    - [Example](#example)
-        - [ChatGPT](#chatgpt)
-        - [DALL-E](#dall-e)
-        - [TTS](#tts)
-    - [Configuration](#configuration)
-- [Features](#features)
-- [License](#license)
+- <a href="README.md#usage"> Usage</a>
+    - <a href="README.md#prerequisites"> Prerequisites</a>
+    - <a href="README.md#integration"> Integration</a>
+        - <a href="README.md#maven"> Maven</a>
+        - <a href="README.md#gradle"> Gradle</a>
+    - <a href="README.md#initialize-javaai"> Initialize JavaAI</a>
+        - <a href="README.md#passing-the-api-key-directly-to-the-constructor"> Passing the API key directly to the constructor</a>
+        - <a href="README.md#using-environment-variable"> Using environment variable</a>
+    - <a href="README.md#example"> Example</a>
+        - <a href="README.md#chatgpt"> ChatGPT</a>
+        - <a href="README.md#dall-e"> DALL-E</a>
+        - <a href="README.md#tts"> TTS</a>
+    - <a href="README.md#configuration"> Configuration</a>
+- <a href="README.md#features"> Features</a>
+- <a href="README.md#license"> License</a>
 
 </details>
 
