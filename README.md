@@ -228,10 +228,13 @@ javaAi.setChatConfig(customChatConfig);
 
 ## Features
 
-1. [x] [GPT](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo)
-2. [x] [DALL·E](https://platform.openai.com/docs/models/dall-e)
-3. [x] [TTS](https://platform.openai.com/docs/models/tts)
-4. [ ] [Whisper](https://platform.openai.com/docs/models/whisper)
+:white_check_mark: [GPT](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo)
+
+:white_check_mark: [DALL·E](https://platform.openai.com/docs/models/dall-e)
+
+:white_check_mark: [TTS](https://platform.openai.com/docs/models/tts)
+
+:black_square_button: [Whisper](https://platform.openai.com/docs/models/whisper)
 
 ---
 
