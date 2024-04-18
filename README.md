@@ -6,28 +6,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1194ce221f4f46ed950d4b05e6fd248c)](https://app.codacy.com/gh/artemnefedov/JavaAI/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 
-
-<details> <summary>Table of Contents</summary>
-
-- [About](#about)
-- [Usage](#usage)
-    - [Prerequisites](#prerequisites)
-    - [Integration](#integration)
-        - [Maven](#maven)
-        - [Gradle](#gradle)
-    - [Initialize JavaAI](#initialize-javaai)
-        - [Passing the API key directly to the constructor](#passing-the-api-key-directly-to-the-constructor)
-        - [Using environment variable](#using-environment-variable)
-    - [Example](#example)
-        - [ChatGPT](#chatgpt)
-        - [DALL-E](#dall-e)
-        - [TTS](#tts)
-    - [Configuration](#configuration)
-- [Features](#features)
-- [License](#license)
-
-</details>
-
 ## About
 
  JavaAi is an easy-to-use and community-maintained library for interacting with OpenAI models on the JVM
