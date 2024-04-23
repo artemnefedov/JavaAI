@@ -7,10 +7,8 @@
 
 
 ## About
+>JavaAI is a lightweight Java library with minimal third-party dependencies designed to interact with the OpenAI API. It provides an intuitive interface for accessing advanced AI capabilities in Java applications. With JavaAI, you can easily integrate state-of-the-art features into your projects, including chat with GPT, image generation in DALL-E, and text-to-speech with Whisper.
 
- JavaAi is an easy-to-use library for interacting with OpenAI on Java
-
----
 
 ## Usage
 
@@ -19,7 +17,6 @@
 - Java 21
 - Maven or Gradle
 - OpenAI API key
-- Internet connection
 
 ### Integration
 
@@ -52,7 +49,7 @@ implementation 'io.github.artemnefedov:javaai:0.4.1'
 var javaAi = JavaAI.javaAiBuilder("YOUR_API_KEY");
 ```
 
-### Using environment variable
+### Using an environment variable
 
 ```java
 var javaAI = JavaAI.javaAiBuilder();
@@ -82,7 +79,7 @@ var javaAI = JavaAI.javaAiBuilder();
 > ```
 >
 > Depending on the value of `n` you [set](#configuration), you can use either the `chat()` method, which returns
-> a `String` response from the api, or the `chatWithChoices()` method, which returns multiple responses from the API
+> a `String` response from the API, or the `chatWithChoices()` method, which returns multiple responses from the API
 > as `List<String>`, depending on the value of `n` you set.
 >
 ---
@@ -92,12 +89,10 @@ var javaAI = JavaAI.javaAiBuilder();
 > You can use the `generateImage()` method to generate an image from a text prompt. The model will return a URL to the
 > result, as a List of String.
 > ```java
-> javaAI.generateImage("Computes science cat, photo on fujifilm x100v, 2024");
+> javaAI.generateImage("Computes science cat, photo on Fujifilm x100v, 2024");
 > ```
-> <details><summary>Response</summary>
->
+> Response
 > ![CS cat](https://github.com/artemnefedov/JavaAI/blob/resource/img/cs-cat.jpg?raw=true)
-></details>
 
 
 ---
@@ -107,26 +102,23 @@ var javaAI = JavaAI.javaAiBuilder();
 > To translate text to speech, you must pass to the `textToSpeech()` method a `string` containing the text you want to
 > voice and a `string` containing the location where the audio file will be saved.
 > ```java
-> javaAI.textToSpeech("Hi, my name is Atryom, and I made this piece of... code.", "path/to/save/audio.mp3");
+> javaAI.textToSpeech("Hi, my name is Artem, and I made this piece of... code.", "path/to/save/audio.mp3");
 >```
-> <details><summary>Response</summary>
+>Response
 >
 > https://github.com/artemnefedov/JavaAI/assets/74130706/82d315be-def0-4946-b560-ab0772f64051
-> </details>
 
 
 ---
 
 ## Configuration
 
-> You can specify different settings for each model, via the `setChatConfig()`, `setDalleConfig()`, and `setTtsConfig()`
-> methods. Accepting records `ChatConfig`, `DalleConfig` and `TtsConfig` respectively.
+You can specify different settings for each model, via the `setChatConfig()`, `setDalleConfig()`, and `setTtsConfig()` methods. You are accepting records `ChatConfig`, `DalleConfig`, and `TtsConfig` respectively.
 
-<details><summary>Config records view</summary>
+### Config records view
 
 ---
 `ChatConfig.java`
-
 ```java
 public record ChatConfig(
         Model model,
@@ -178,7 +170,6 @@ public record TtsConfig(
 Parameters in [OpenAI API docs](https://platform.openai.com/docs/api-reference/audio/createSpeech)
 
 ---
-</details>
 
 ### Example for Chat:
 
@@ -218,4 +209,4 @@ javaAi.setChatConfig(customChatConfig);
 
 ## License
 
-#### Distributed under the [MIT License](./LICENSE)
+#### Distributed under the [MIT License](https://raw.githubusercontent.com/artemnefedov/JavaAI/main/LICENSE)
