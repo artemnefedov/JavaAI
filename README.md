@@ -8,7 +8,7 @@
 
 ## About
 
- JavaAi is an easy-to-use and community-maintained library for interacting with OpenAI models on the JVM
+ JavaAi is an easy-to-use library for interacting with OpenAI on Java
 
 ---
 
