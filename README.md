@@ -7,7 +7,7 @@
 
 
 ## About
->JavaAI is a lightweight Java library with minimal third-party dependencies designed to interact with the OpenAI API. It provides an intuitive interface for accessing advanced AI capabilities in Java applications. With JavaAI, you can easily integrate state-of-the-art features into your projects, including chat with GPT, image generation in DALL-E, and text-to-speech with Whisper.
+JavaAI is a lightweight Java library with minimal third-party dependencies designed to interact with the OpenAI API. It provides an intuitive interface for accessing advanced AI capabilities in Java applications. With JavaAI, you can easily integrate state-of-the-art features into your projects, including chat with GPT, image generation in DALL-E, and text-to-speech with Whisper.
 
 
 ## Usage
