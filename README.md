@@ -15,7 +15,6 @@ JavaAI is a lightweight Java library with minimal third-party dependencies desig
 ### Prerequisites
 
 - Java 21
-- Maven or Gradle
 - OpenAI API key
 
 ### Integration
