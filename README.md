@@ -4,17 +4,20 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/artemnefedov/JavaAI/total)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/artemnefedov/JavaAI/blob/main/LICENSE)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1194ce221f4f46ed950d4b05e6fd248c)](https://app.codacy.com/gh/artemnefedov/JavaAI/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-
+[![codecov](https://codecov.io/gh/artemnefedov/JavaAI/graph/badge.svg?token=UT012AZTNY)](https://codecov.io/gh/artemnefedov/JavaAI)
 
 ## About
-JavaAI is a lightweight Java library with minimal third-party dependencies designed to interact with the OpenAI API. It provides an intuitive interface for accessing advanced AI capabilities in Java applications. With JavaAI, you can easily integrate state-of-the-art features into your projects, including chat with GPT, image generation in DALL-E, and text-to-speech with Whisper.
 
+JavaAI is a lightweight Java library with minimal third-party dependencies designed to interact with the OpenAI API. It
+provides an intuitive interface for accessing advanced AI capabilities in Java applications. With JavaAI, you can easily
+integrate state-of-the-art features into your projects, including chat with GPT, image generation in DALL-E, and
+text-to-speech with Whisper.
 
 ## Usage
 
 ### Prerequisites
 
-- Java 21
+- Java 17
 - Maven or Gradle
 - OpenAI API key
 
@@ -41,7 +44,9 @@ implementation 'io.github.artemnefedov:javaai:0.4.1'
 
 ## Initialize JavaAI
 
->  You can initialize JavaAI in two ways: by directly passing the API key to the constructor or by adding environment variables with the key to your system, naming it **OPENAI_API_KEY** as recommended by [OpenAi](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety#h_a1ab3ba7b2)
+> You can initialize JavaAI in two ways: by directly passing the API key to the constructor or by adding environment
+> variables with the key to your system, naming it **OPENAI_API_KEY** as recommended
+> by [OpenAi](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety#h_a1ab3ba7b2)
 
 ### Passing the API key directly to the constructor
 
@@ -113,12 +118,14 @@ var javaAI = JavaAI.javaAiBuilder();
 
 ## Configuration
 
-You can specify different settings for each model, via the `setChatConfig()`, `setDalleConfig()`, and `setTtsConfig()` methods. You are accepting records `ChatConfig`, `DalleConfig`, and `TtsConfig` respectively.
+You can specify different settings for each model, via the `setChatConfig()`, `setDalleConfig()`, and `setTtsConfig()`
+methods. You are accepting records `ChatConfig`, `DalleConfig`, and `TtsConfig` respectively.
 
 ### Config records view
 
 ---
 `ChatConfig.java`
+
 ```java
 public record ChatConfig(
         Model model,
