@@ -1,0 +1,51 @@
+name: Check dependabot PR
+
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+  contents: write
+  actions: read
+  checks: write
+
+jobs:
+  check_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
+      - name: Install dependencies
+        run: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+      - name: Run tests and collect coverage
+        run: ./mvnw -B test
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1.9.1
+        if: success() || failure()
+        with:
+          name: JavaAI Tests
+          path: 'target/surefire-reports/TEST-*.xml'
+          reporter: java-junit
+
+  approve_dependabot_pull_request:
+    runs-on: ubuntu-latest
+    needs: [ check_pull_request ]
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v2
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}

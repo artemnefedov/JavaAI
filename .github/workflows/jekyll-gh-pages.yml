@@ -3,7 +3,7 @@ name: Deploy Page with Jekyll
 on:
   push:
     paths: README.md
-    branches: ["main"]
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -30,8 +30,6 @@ jobs:
           destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-
-  # Deployment job
   deploy:
     environment:
       name: github-pages
