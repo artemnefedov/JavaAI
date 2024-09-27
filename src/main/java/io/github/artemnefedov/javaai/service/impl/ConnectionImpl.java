@@ -53,13 +53,15 @@ public class ConnectionImpl implements Connection {
      * @param apiKey the api key
      */
     ConnectionImpl(String apiKey) {
-        this.API_KEY = apiKey;
+        API_KEY = apiKey;
     }
 
     @Override
     public JSONObject getJsonResponse(OpenAiModel model) {
         var inputStream = sendRequest(model.getJson().toString(), model.getURL());
-        String response = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)).lines().collect(Collectors.joining("\n"));
+        String response = new BufferedReader(
+                new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                .lines().collect(Collectors.joining("\n"));
         return new JSONObject(response);
     }
 
@@ -83,16 +85,20 @@ public class ConnectionImpl implements Connection {
             var connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Authorization", "Bearer " + this.API_KEY);
+            connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
             connection.setDoOutput(true);
             try (var outputStream = connection.getOutputStream()) {
                 outputStream.write(json.getBytes(StandardCharsets.UTF_8));
             }
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                var errorMessages = new StringBuilder();
-                errorMessages.append("Unexpected HTTP response: " + connection.getResponseCode());
-                errorMessages.append("\n");
-                String errorResponse = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8)).lines().collect(Collectors.joining("\n"));
+                var errorMessages = new StringBuilder()
+                        .append("Unexpected HTTP response: ")
+                        .append(connection.getResponseCode())
+                        .append("\n");
+                String errorResponse = new BufferedReader(new InputStreamReader(
+                        connection.getErrorStream(),
+                        StandardCharsets.UTF_8
+                )).lines().collect(Collectors.joining("\n"));
                 Map<String, Object> error = new JSONObject(errorResponse).toMap();
                 Map<String, Object> errorDetails = (Map<String, Object>) error.get("error");
                 errorMessages.append(errorDetails.get("message"));

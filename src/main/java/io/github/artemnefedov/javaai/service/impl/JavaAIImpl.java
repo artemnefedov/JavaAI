@@ -32,6 +32,7 @@ import io.github.artemnefedov.javaai.model.dalle.Dalle;
 import io.github.artemnefedov.javaai.model.dalle.DalleConfig;
 import io.github.artemnefedov.javaai.model.tts.Tts;
 import io.github.artemnefedov.javaai.model.tts.TtsConfig;
+import io.github.artemnefedov.javaai.service.Connection;
 import io.github.artemnefedov.javaai.service.JavaAI;
 
 import java.io.FileOutputStream;
@@ -46,7 +47,7 @@ public class JavaAIImpl implements JavaAI {
     private final Dalle dalle;
     private final Chat chat;
     private final Tts tts;
-    private final ConnectionImpl connection;
+    private Connection connection;
 
     /**
      * Instantiates a new OpenAi implementation.
@@ -60,29 +61,46 @@ public class JavaAIImpl implements JavaAI {
         this.tts = new Tts();
     }
 
+    public Dalle getDalle() {
+        return dalle;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public Tts getTts() {
+        return tts;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public String generateImage(String prompt) {
-        this.dalle.setPrompt(prompt);
-        var jsonResponse = this.connection.getJsonResponse(this.dalle);
-        return this.dalle.getResponse(jsonResponse);
+        dalle.setPrompt(prompt);
+        var jsonResponse = connection.getJsonResponse(dalle);
+        return dalle.getResponse(jsonResponse);
     }
 
     @Override
     public List<String> generateImages(String prompt) {
-        if (this.dalle.getN() <= 1) {
-            throw new JavaAIException("You must set the number of responses received from the DALL-E API > 1 to receive multiple responses.");
+        if (dalle.getN() <= 1) {
+            throw new JavaAIException(
+                    "You must set the number of responses received from the DALL-E API > 1 to receive multiple responses.");
         }
-        this.dalle.setPrompt(prompt);
-        var jsonResponse = this.connection.getJsonResponse(this.dalle);
-        return this.dalle.getResponses(jsonResponse);
+        dalle.setPrompt(prompt);
+        var jsonResponse = this.connection.getJsonResponse(dalle);
+        return dalle.getResponses(jsonResponse);
     }
 
     @Override
     public boolean textToSpeech(String prompt, String path, String fileName) {
-        this.tts.setInput(prompt);
-        var audioResponse = this.connection.getAudioResponse(this.tts);
+        tts.setInput(prompt);
+        var audioResponse = connection.getAudioResponse(tts);
         try (var fos = new FileOutputStream(
-                String.format("%s%s.%s", path, fileName, this.tts.getResponseFormat()))) {
+                String.format("%s%s.%s", path, fileName, tts.getResponseFormat()))) {
             fos.write(audioResponse);
             return true;
         } catch (IOException ex) {
@@ -92,50 +110,52 @@ public class JavaAIImpl implements JavaAI {
 
     @Override
     public String chat(List<ChatMessage> messages) {
-        messages.forEach(msg -> this.chat.getMessages().add(msg));
-        var jsonResponse = this.connection.getJsonResponse(this.chat);
-        return this.chat.getResponse(jsonResponse);
+        messages.forEach(msg -> chat.getMessages().add(msg));
+        var jsonResponse = connection.getJsonResponse(chat);
+        return chat.getResponse(jsonResponse);
     }
 
     @Override
     public List<String> chatWithChoices(List<ChatMessage> messages) {
-        if (this.chat.getN() <= 1) {
-            throw new JavaAIException("You must set the number of responses received from the Chat API > 1 to receive multiple responses.");
+        if (chat.getN() <= 1) {
+            throw new JavaAIException(
+                    "You must set the number of responses received from the Chat API > 1 to receive multiple responses.");
         }
-        messages.forEach(msg -> this.chat.getMessages().add(msg));
-        var jsonResponse = this.connection.getJsonResponse(this.chat);
-        return this.chat.getResponses(jsonResponse);
+        messages.forEach(msg -> chat.getMessages().add(msg));
+        var jsonResponse = connection.getJsonResponse(chat);
+        return chat.getResponses(jsonResponse);
     }
 
     @Override
     public String chat(String userMessage) {
-        this.chat.getMessages().add(new ChatMessage("user", userMessage));
-        var jsonResponse = this.connection.getJsonResponse(this.chat);
-        return this.chat.getResponse(jsonResponse);
+        chat.getMessages().add(new ChatMessage("user", userMessage));
+        var jsonResponse = connection.getJsonResponse(chat);
+        return chat.getResponse(jsonResponse);
     }
 
     @Override
     public List<String> chatWithChoices(String userMessage) {
-        if (this.chat.getN() <= 1) {
-            throw new JavaAIException("You must set the number of responses received from the chat API > 1 to receive multiple responses.");
+        if (chat.getN() <= 1) {
+            throw new JavaAIException(
+                    "You must set the number of responses received from the chat API > 1 to receive multiple responses.");
         }
-        this.chat.getMessages().add(new ChatMessage("user", userMessage));
-        var jsonResponse = this.connection.getJsonResponse(this.chat);
-        return this.chat.getResponses(jsonResponse);
+        chat.getMessages().add(new ChatMessage("user", userMessage));
+        var jsonResponse = connection.getJsonResponse(chat);
+        return chat.getResponses(jsonResponse);
     }
 
     @Override
     public void setChatConfig(ChatConfig chatConfig) {
-        this.chat.setConfig(chatConfig);
+        chat.setConfig(chatConfig);
     }
 
     @Override
     public void setDalleConfig(DalleConfig dalleConfig) {
-        this.dalle.setConfig(dalleConfig);
+        dalle.setConfig(dalleConfig);
     }
 
     @Override
     public void setTtsConfig(TtsConfig ttsConfig) {
-        this.tts.setConfig(ttsConfig);
+        tts.setConfig(ttsConfig);
     }
 }

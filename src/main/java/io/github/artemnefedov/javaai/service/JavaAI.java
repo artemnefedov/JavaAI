@@ -39,8 +39,32 @@ import java.util.List;
 public interface JavaAI {
 
     /**
-     * The method
-     * that generates single image uses a <a href="https://platform.openai.com/docs/api-reference/images">DALL-E</a>.
+     * JavaAI builder with an api key
+     *
+     * @param apiKey the api key from OpenAI
+     * @return the JavaAI implementation
+     */
+    static JavaAI javaAiBuilder(String apiKey) {
+        return new JavaAIImpl(apiKey);
+    }
+
+    /**
+     * JavaAI builder with environment variable
+     *
+     * @return the JavaAI implementation
+     */
+    static JavaAI javaAiBuilder() {
+        String apiKey = System.getProperty("openai.api.key");
+        if (apiKey == null) {
+            throw new JavaAIException(
+                    "You must set the OPENAI_API_KEY environment variable to use this library.");
+        }
+        return new JavaAIImpl(apiKey);
+    }
+
+    /**
+     * The method that generates single image uses a <a
+     * href="https://platform.openai.com/docs/api-reference/images">DALL-E</a>.
      *
      * @param prompt parameters for image generation.
      * @return the response from the API as a string (url or base64 string)
@@ -48,8 +72,8 @@ public interface JavaAI {
     String generateImage(String prompt);
 
     /**
-     * The method
-     * that generates multiple images uses a <a href="https://platform.openai.com/docs/api-reference/images">DALL-E</a>.
+     * The method that generates multiple images uses a <a
+     * href="https://platform.openai.com/docs/api-reference/images">DALL-E</a>.
      *
      * @param prompt parameters for image generation.
      * @return the response from the API as a string (url or base64 string)
@@ -59,8 +83,8 @@ public interface JavaAI {
     /**
      * Generate audio from text using the OpenAI TTS API.
      *
-     * @param prompt the text to convert to speech
-     * @param path the path to save the file
+     * @param prompt   the text to convert to speech
+     * @param path     the path to save the file
      * @param fileName the name of the file
      * @return true if the file was created successfully
      */
@@ -97,29 +121,6 @@ public interface JavaAI {
      * @return the response from the API as a list of strings
      */
     List<String> chatWithChoices(String userMessage);
-
-    /**
-     * JavaAI builder with an api key
-     *
-     * @param apiKey the api key from OpenAI
-     * @return the JavaAI implementation
-     */
-    static JavaAI javaAiBuilder(String apiKey) {
-        return new JavaAIImpl(apiKey);
-    }
-
-    /**
-     * JavaAI builder with environment variable
-     *
-     * @return the JavaAI implementation
-     */
-    static JavaAI javaAiBuilder() {
-        String apiKey = System.getProperty("openai.api.key");
-        if (apiKey == null) {
-            throw new JavaAIException("You must set the OPENAI_API_KEY environment variable to use this library.");
-        }
-        return new JavaAIImpl(apiKey);
-    }
 
     /**
      * Setter for custom chat configuration options.

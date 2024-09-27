@@ -67,7 +67,7 @@ public record ChatConfig(
         GPT_3_5_TURBO("gpt-3.5-turbo"),
         GPT_3_5_TURBO_16K("gpt-3.5-turbo-16k");
 
-        private String model;
+        private final String model;
 
         Model(String model) {
             this.model = model;

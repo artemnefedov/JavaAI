@@ -29,6 +29,8 @@ import io.github.artemnefedov.javaai.model.OpenAiModel;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Tts implements OpenAiModel {
@@ -39,8 +41,8 @@ public class Tts implements OpenAiModel {
 
     public Tts() {
         try {
-            this.URL = new URL("https://api.openai.com/v1/audio/speech");
-        } catch (MalformedURLException ex) {
+            this.URL = new URI("https://api.openai.com/v1/audio/speech").toURL();
+        } catch (MalformedURLException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
         this.config = new TtsConfig(
@@ -56,14 +58,19 @@ public class Tts implements OpenAiModel {
     }
 
     @Override
+    public TtsConfig getConfig() {
+        return config;
+    }
+
+    @Override
     public void setConfig(Config config) {
         this.config = (TtsConfig) config;
     }
 
     @Override
     public JSONObject getJson() {
-        var params = this.config.getParamJson();
-        params.put("input", this.input);
+        var params = config.getParamJson();
+        params.put("input", input);
         return params;
     }
 

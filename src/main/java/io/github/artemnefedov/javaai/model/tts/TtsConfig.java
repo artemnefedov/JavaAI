@@ -48,7 +48,7 @@ public record TtsConfig(
         TTS_1("tts-1"),
         TTS_1_HD("tts-1-hd");
 
-        private String model;
+        private final String model;
 
         TtsModel(String model) {
             this.model = model;
@@ -67,7 +67,7 @@ public record TtsConfig(
         NOVA("nova"),
         SHIMMER("shimmer");
 
-        private String voice;
+        private final String voice;
 
         Voice(String voice) {
             this.voice = voice;
@@ -86,7 +86,7 @@ public record TtsConfig(
         WAV("wav"),
         PCM("pcm");
 
-        private String format;
+        private final String format;
 
         VoiceResponseFormat(String format) {
             this.format = format;

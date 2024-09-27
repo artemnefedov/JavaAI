@@ -29,13 +29,16 @@ import io.github.artemnefedov.javaai.model.OpenAiModel;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
+ * dto to send a request to the <a
+ * href="https://platform.openai.com/docs/api-reference/images/create">Create image</a>.
  */
 public class Dalle implements OpenAiModel {
 
@@ -45,9 +48,8 @@ public class Dalle implements OpenAiModel {
 
     public Dalle() {
         try {
-            this.URL = new URL("https://api.openai.com/v1/images/generations");
-        } catch (
-                MalformedURLException ex) {
+            this.URL = new URI("https://api.openai.com/v1/images/generations").toURL();
+        } catch (MalformedURLException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
         this.config = new DalleConfig(
@@ -62,28 +64,33 @@ public class Dalle implements OpenAiModel {
     }
 
     @Override
+    public DalleConfig getConfig() {
+        return config;
+    }
+
+    @Override
     public void setConfig(Config config) {
         this.config = (DalleConfig) config;
     }
 
     @Override
     public JSONObject getJson() {
-        var params = this.config.getParamJson();
-        params.put("prompt", this.prompt);
+        var params = config.getParamJson();
+        params.put("prompt", prompt);
         return params;
     }
 
     @Override
     public String getResponse(JSONObject json) {
         var data = json.getJSONArray("data");
-        return data.getJSONObject(0).getString(this.config.responseFormat().getFormat());
+        return data.getJSONObject(0).getString(config.responseFormat().getFormat());
     }
 
     public List<String> getResponses(JSONObject json) {
         List<String> response = new ArrayList<>();
         var data = json.getJSONArray("data");
         for (int i = 0; i < this.config.n(); i++) {
-            response.add(data.getJSONObject(i).getString(this.config.responseFormat().getFormat()));
+            response.add(data.getJSONObject(i).getString(config.responseFormat().getFormat()));
         }
         return response;
     }

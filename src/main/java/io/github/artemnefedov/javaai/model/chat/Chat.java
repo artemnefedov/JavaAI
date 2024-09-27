@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +39,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * dto to send a request to the <a href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
+ * dto to send a request to the <a
+ * href="https://platform.openai.com/docs/api-reference/chat">Chat</a>.
  */
 public class Chat implements OpenAiModel {
 
@@ -47,8 +50,8 @@ public class Chat implements OpenAiModel {
 
     public Chat() {
         try {
-            this.URL = new URL("https://api.openai.com/v1/chat/completions");
-        } catch (MalformedURLException ex) {
+            this.URL = new URI("https://api.openai.com/v1/chat/completions").toURL();
+        } catch (MalformedURLException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -70,6 +73,11 @@ public class Chat implements OpenAiModel {
     }
 
     @Override
+    public ChatConfig getConfig() {
+        return config;
+    }
+
+    @Override
     public void setConfig(Config config) {
         this.config = (ChatConfig) config;
     }
@@ -86,7 +94,6 @@ public class Chat implements OpenAiModel {
     @Override
     public String getResponse(JSONObject json) {
         var choices = json.getJSONArray("choices");
-
         return choices.getJSONObject(0).getJSONObject("message").getString("content");
     }
 
@@ -97,8 +104,8 @@ public class Chat implements OpenAiModel {
         for (int i = 0; i < this.config.n(); i++) {
             int index = choices.getJSONObject(i).getInt("index");
             var message = choices.getJSONObject(i)
-                    .getJSONObject("message")
-                    .getString("content");
+                                 .getJSONObject("message")
+                                 .getString("content");
             responses.add(index, message);
         }
         return responses;

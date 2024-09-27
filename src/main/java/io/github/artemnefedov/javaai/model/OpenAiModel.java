@@ -33,14 +33,12 @@ import java.net.URL;
  */
 public interface OpenAiModel {
 
-
-//    /**
-//     * Gets a response model.
-//     *
-//     * @return the response model
-//     */
-//    Class<? extends ModelResponse> getResponseModel();
-
+    /**
+     * Gets a config.
+     *
+     * @return the config
+     */
+    Config getConfig();
 
     /**
      * Sets a config for the model.
