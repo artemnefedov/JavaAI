@@ -38,7 +38,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Test Report
-        uses: dorny/test-reporter@v2.0.0
+        uses: dorny/test-reporter@v2.1.0
         if: success() || failure()
         with:
           name: JavaAI Tests
